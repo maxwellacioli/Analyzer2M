@@ -9,6 +9,8 @@ public class Analyzer2M {
 
 	private List<String> linesList = new ArrayList<>();
 	private int currentLine, currentColumn = 0;
+	
+	private static final char LINE_BREAK = '\0';
 
 	public static void main(String[] args) {
 
@@ -74,44 +76,56 @@ public class Analyzer2M {
 		// caracter a caracter
 		currentChar = line.charAt(currentColumn);
 
-		// Enquanto nao for encontrado um simbolo especial, os caracteres
-		// serao
-		// concatenados
-		// em uma string que devera ser um token identificador ou palavra
-		// chave.
-		while (!LexicalTable.symbolList.contains(currentChar)) {
-			tkValue += currentChar;
-
-			// Vai para o proximo
-			currentColumn++;
-			if (currentColumn < line.length()) {
-				currentChar = line.charAt(currentColumn);
-			} else {
+		// Ignora sequência de espaços vazios
+		while (currentChar == ' ') {
+			currentChar = nextChar();
+			if (currentChar == LINE_BREAK) {
 				break;
 			}
 		}
 
-		if(currentChar == ' ') {
-			currentColumn++;
-			return nextToken();
-		}
-		else if (tkValue == "") {
+		// Enquanto nao for encontrado um simbolo especial, os caracteres
+		// serao concatenados em uma string que devera ser um token
+		// identificador ou palavra chave.
+		while (!LexicalTable.symbolList.contains(currentChar)) {
 			tkValue += currentChar;
-			currentColumn++;
+
+			// Vai para o proximo
+			currentChar = nextChar();
+			if (currentChar == LINE_BREAK) {
+				break;
+			}
+			
+		}
+
+		if (tkValue == "") {
 
 			if (currentChar == '"') {
-				while(currentColumn < line.length()) {
-					currentChar = line.charAt(currentColumn);
+				tkValue += currentChar;				
+				currentChar = nextChar();
+				
+				while(currentChar != LINE_BREAK) {
+					
 					tkValue += currentChar;
-					currentColumn++;
+					currentChar = nextChar();
+					
 					if(currentChar == '"') {
+				
+						tkValue += currentChar;
+						currentColumn++;
 						break;
+						
 					}
+					
 				}
+					
+			} else {
+				
+				tkValue += currentChar;
+				currentColumn++;
+				
 			}
-
-			// Tratar aspas e alguns operadores, conteudo da string pode ter
-			// simbolos
+			
 		}
 
 		token = new Token();
@@ -119,8 +133,8 @@ public class Analyzer2M {
 		token.setValue(tkValue.trim());
 		token.setLine(currentLine);
 		token.setColumn(tkBeginColumn);
-		token.setCategory(analyzeCategory(tkValue)); // Reconhecer o tipo do
-														// token
+		token.setCategory(analyzeCategory(tkValue));
+		// Reconhecer o tipo do token
 
 		return token;
 
@@ -132,5 +146,18 @@ public class Analyzer2M {
 			return LexicalTable.keyWordMap.get(tkValue);
 		}
 		return null;
+	}
+	
+	private char nextChar() {
+		
+		String line = linesList.get(currentLine);
+		currentColumn++;
+		
+		if(currentColumn < line.length()) {
+			return line.charAt(currentColumn);
+		} else {
+			return LINE_BREAK;
+		}
+		
 	}
 }
