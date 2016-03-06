@@ -9,6 +9,7 @@ public class Analyzer2M {
 
 	private List<String> linesList = new ArrayList<>();
 	private int currentLine, currentColumn, tkBeginColumn = 0;
+	private String line;
 
 	private static final char LINE_BREAK = '\n';
 
@@ -26,7 +27,7 @@ public class Analyzer2M {
 		}
 
 	}
-	
+
 	private void readFile() {
 
 		BufferedReader br;
@@ -34,11 +35,11 @@ public class Analyzer2M {
 		try {
 			br = new BufferedReader(new FileReader("files/hello.2m"));
 
-			String line = br.readLine();
+			String brLine = br.readLine();
 
-			while (line != null) {
-				linesList.add(line);
-				line = br.readLine();
+			while (brLine != null) {
+				linesList.add(brLine);
+				brLine = br.readLine();
 			}
 			br.close();
 		} catch (Exception e) {
@@ -47,28 +48,32 @@ public class Analyzer2M {
 
 	}
 
-
 	private boolean hasMoreTokens() {
-		String line = linesList.get(currentLine);
+		
+		if (!linesList.isEmpty()) {
 
-		if (currentColumn < line.length()) {
-			return true;
-		} else {
-			currentLine++;
-			currentColumn = 0;
+			line = linesList.get(currentLine);
 
-			if (currentLine < linesList.size()) {
+			if (currentColumn < line.length()) {
 				return true;
+			} else {
+				currentLine++;
+				currentColumn = 0;
+
+				if (currentLine < linesList.size()) {
+					line = linesList.get(currentLine);
+					return true;
+				}
 			}
 		}
 		return false;
+
 	}
 
 	public Token nextToken() {
 
 		Token token;
 
-		String line = linesList.get(currentLine);
 		char currentChar;
 		String tkValue = "";
 
@@ -76,6 +81,12 @@ public class Analyzer2M {
 
 		// Percorre a linha a partir da proxima coluna a ser analisada lendo
 		// caracter a caracter
+		if (line.length() == 0) {
+			if (hasMoreTokens()) {
+				return nextToken();
+			}
+		}
+
 		currentChar = line.charAt(currentColumn);
 
 		// Ignora sequência de espaços vazios
@@ -104,7 +115,8 @@ public class Analyzer2M {
 			}
 		} else {
 
-			// Enquanto nao for encontrado um simbolo especial, os caracteres
+			// Enquanto nao for encontrado um simbolo especial, os
+			// caracteres
 			// serao concatenados em uma string que devera ser um token
 			// identificador ou palavra chave.
 			while (!LexicalTable.symbolList.contains(currentChar)) {
@@ -207,10 +219,10 @@ public class Analyzer2M {
 	}
 
 	private TokenCategory analyzeCategory(String tkValue) {
-		
+
 		if (isOpNegUnary(tkValue)) {
 			return TokenCategory.OPNEGUN;
-			
+
 		} else if (LexicalTable.lexemMap.containsKey(tkValue)) {
 			return LexicalTable.lexemMap.get(tkValue);
 
@@ -233,10 +245,46 @@ public class Analyzer2M {
 		return TokenCategory.UNKNOWN;
 	}
 
+	private Character nextChar() {
+
+		currentColumn++;
+
+		if (currentColumn < line.length()) {
+			return line.charAt(currentColumn);
+		} else {
+			return LINE_BREAK;
+		}
+
+	}
+
+	private Character previousNotBlankChar() {
+
+		int previousColumn = tkBeginColumn - 1;
+		char previousChar;
+
+		while (previousColumn >= 0) {
+			previousChar = line.charAt(previousColumn);
+			if (previousChar != ' ' && previousChar != '\t') {
+				return previousChar;
+			}
+			previousColumn--;
+		}
+		return null;
+
+	}
+
 	private boolean isOpNegUnary(String tkValue) {
-		
-		if(tkValue == "-") { // Decide se o - é o operador aditivo ou se é o unário negativo
-			
+
+		if (tkValue.equals("-")) { // Decide se o - é o operador aditivo ou se é
+								   // o unário negativo
+
+			Character previousChar = previousNotBlankChar();
+			if ((previousChar != null)
+					&& Character.toString(previousChar).matches("[_a-zA-Z0-9]")) {
+				return false;
+			} else {
+				return true;
+			}
 		}
 		return false;
 	}
@@ -255,19 +303,6 @@ public class Analyzer2M {
 			return true;
 		}
 		return false;
-	}
-
-	private char nextChar() {
-
-		String line = linesList.get(currentLine);
-		currentColumn++;
-
-		if (currentColumn < line.length()) {
-			return line.charAt(currentColumn);
-		} else {
-			return LINE_BREAK;
-		}
-
 	}
 
 	private boolean isCchar(String tkValue) {
@@ -299,9 +334,12 @@ public class Analyzer2M {
 			}
 
 			// Caso em que o identificador não começa com o caractere esperado.
-			// Também não considera tkValue que começa com ", ' ou número pois caso
-			// algum tkValue nessa condição chegue até aqui, é um cchar ou um char que
-			// não foi propriamente fechado, ou uma constante decimal em formato errado.
+			// Também não considera tkValue que começa com ", ' ou número pois
+			// caso
+			// algum tkValue nessa condição chegue até aqui, é um cchar ou um
+			// char que
+			// não foi propriamente fechado, ou uma constante decimal em formato
+			// errado.
 		} else if (tkValue.matches("[^_a-zA-Z0-9\"'].*")) {
 			System.out.println("Identificador não iniciado com letra ou '_'.");
 
