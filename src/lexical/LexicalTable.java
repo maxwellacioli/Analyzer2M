@@ -22,13 +22,12 @@ public class LexicalTable {
 		lexemMap.put("^", TokenCategory.OPARITEXP);
 		lexemMap.put("+", TokenCategory.OPARITADIT);
 		
-		lexemMap.put("<", TokenCategory.OPREL);
-		lexemMap.put(">", TokenCategory.OPREL);
-		lexemMap.put("<", TokenCategory.OPREL);
-		lexemMap.put("<=", TokenCategory.OPREL);
-		lexemMap.put(">=", TokenCategory.OPREL);
-		lexemMap.put("==", TokenCategory.OPREL);
-		lexemMap.put("~=", TokenCategory.OPREL);
+		lexemMap.put("<", TokenCategory.OPREL1);
+		lexemMap.put(">", TokenCategory.OPREL1);
+		lexemMap.put("<=", TokenCategory.OPREL1);
+		lexemMap.put(">=", TokenCategory.OPREL1);
+		lexemMap.put("==", TokenCategory.OPREL2);
+		lexemMap.put("~=", TokenCategory.OPREL2);
 		
 		lexemMap.put("=", TokenCategory.OPATRIB);
 		lexemMap.put("++", TokenCategory.OPCONC);

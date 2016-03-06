@@ -10,7 +10,7 @@ public class Analyzer2M {
 	private List<String> linesList = new ArrayList<>();
 	private int currentLine, currentColumn, tkBeginColumn = 0;
 
-	private static final char LINE_BREAK = '\0';
+	private static final char LINE_BREAK = '\n';
 
 	public static void main(String[] args) {
 
@@ -78,7 +78,7 @@ public class Analyzer2M {
 		currentChar = line.charAt(currentColumn);
 
 		// Ignora sequência de espaços vazios
-		while (currentChar == ' ') {
+		while (currentChar == ' ' || currentChar == '\t') {
 			currentChar = nextChar();
 			tkBeginColumn++;
 			if (currentChar == LINE_BREAK) {
@@ -139,6 +139,7 @@ public class Analyzer2M {
 				}				
 				break;
 
+			//TODO TRATAR N COISAS.... (=)...
 			case '<': case '>': case '~': case '=': // Compondo um token que pode ser <=, >=, ~= ou ==
 				
 				tkValue += currentChar;
