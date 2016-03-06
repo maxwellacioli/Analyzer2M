@@ -1,6 +1,8 @@
 major () empty [
 	printout ("Hello World")#
-	if('a' =>> d) [
-	
-	]#
+	+AAAA
+	+5555A
+	+5++3.5
+	+5.A
+	+5.67+5
 ]#

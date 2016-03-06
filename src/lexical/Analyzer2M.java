@@ -86,24 +86,43 @@ public class Analyzer2M {
 			}
 		}
 
-		// Enquanto nao for encontrado um simbolo especial, os caracteres
-		// serao concatenados em uma string que devera ser um token
-		// identificador ou palavra chave.
-		while (!LexicalTable.symbolList.contains(currentChar)) {
+		if (Character.toString(currentChar).matches("[0-9]")) {
 			tkValue += currentChar;
-
-			// Vai para o proximo
 			currentChar = nextChar();
-			if (currentChar == LINE_BREAK) {
-				break;
+			while (Character.toString(currentChar).matches("[0-9]")) {
+				tkValue += currentChar;
+				currentChar = nextChar();
 			}
+			if (currentChar == '.') {
+				tkValue += currentChar;
+				currentChar = nextChar();
+				while (Character.toString(currentChar).matches("[0-9]")) {
+					tkValue += currentChar;
+					currentChar = nextChar();
+				}
+			}
+		} else {
 
+			// Enquanto nao for encontrado um simbolo especial, os caracteres
+			// serao concatenados em uma string que devera ser um token
+			// identificador ou palavra chave.
+			while (!LexicalTable.symbolList.contains(currentChar)) {
+				tkValue += currentChar;
+
+				// Vai para o proximo
+				currentChar = nextChar();
+				if (currentChar == LINE_BREAK) {
+					break;
+				}
+
+			}
 		}
 
 		if (tkValue == "") {
+			// Verificação de constantes inteiras ou decimais
 
 			switch (currentChar) {
-			
+
 			case '"': // Compondo um token que possivelmente é um cchar
 
 				tkValue += currentChar;
@@ -136,25 +155,38 @@ public class Analyzer2M {
 				if (currentChar == '\'') {
 					tkValue += currentChar;
 					currentColumn++;
-				}				
+				}
 				break;
 
-			//TODO TRATAR N COISAS.... (=)...
-			case '<': case '>': case '~': case '=': // Compondo um token que pode ser <=, >=, ~= ou ==
-				
+			// TODO TRATAR N COISAS.... (=)...
+			case '<':
+			case '>':
+			case '~':
+			case '=': // Compondo um token que pode ser <=, >=, ~= ou ==
+
 				tkValue += currentChar;
 				currentChar = nextChar();
 				if (currentChar == '=') {
 					tkValue += currentChar;
-					currentColumn++;	
+					currentColumn++;
 				}
 				break;
-				
-			case '+': // Compondo um token que pode ser operador aditivo, de concatenação ou constante numérica
+
+			case '+': // Compondo um token que pode ser operador aditivo, de
+						// concatenação ou constante numérica
+				tkValue += currentChar;
+				currentChar = nextChar();
+
+				if (currentChar == '+') {
+					tkValue += currentChar;
+					currentChar = nextChar();
+				}
+
 				break;
-			case '-': // Compondo um token que pode ser operador aditivo ou constante numérica
+			case '-': // Compondo um token que pode ser operador aditivo ou
+						// constante numérica
 				break;
-				
+
 			default:
 				tkValue += currentChar;
 				currentColumn++;
@@ -212,7 +244,8 @@ public class Analyzer2M {
 		if (tkValue.startsWith("\"") && tkValue.endsWith("\"")) {
 			return true;
 		} else if (tkValue.startsWith("\"")) {
-			System.out.println("Cadeia de caracteres não fechada corretamente com '\"'.");
+			System.out
+					.println("Cadeia de caracteres não fechada corretamente com '\"'.");
 		}
 		return false;
 	}
