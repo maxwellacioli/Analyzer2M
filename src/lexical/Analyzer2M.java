@@ -26,23 +26,7 @@ public class Analyzer2M {
 		}
 
 	}
-
-	private boolean hasMoreTokens() {
-		String line = linesList.get(currentLine);
-
-		if (currentColumn < line.length()) {
-			return true;
-		} else {
-			currentLine++;
-			currentColumn = 0;
-
-			if (currentLine < linesList.size()) {
-				return true;
-			}
-		}
-		return false;
-	}
-
+	
 	private void readFile() {
 
 		BufferedReader br;
@@ -61,6 +45,23 @@ public class Analyzer2M {
 			e.printStackTrace();
 		}
 
+	}
+
+
+	private boolean hasMoreTokens() {
+		String line = linesList.get(currentLine);
+
+		if (currentColumn < line.length()) {
+			return true;
+		} else {
+			currentLine++;
+			currentColumn = 0;
+
+			if (currentLine < linesList.size()) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public Token nextToken() {
@@ -86,17 +87,17 @@ public class Analyzer2M {
 			}
 		}
 
-		if (Character.toString(currentChar).matches("[0-9]")) {
+		if (Character.toString(currentChar).matches("\\d")) {
 			tkValue += currentChar;
 			currentChar = nextChar();
-			while (Character.toString(currentChar).matches("[0-9]")) {
+			while (Character.toString(currentChar).matches("\\d")) {
 				tkValue += currentChar;
 				currentChar = nextChar();
 			}
 			if (currentChar == '.') {
 				tkValue += currentChar;
 				currentChar = nextChar();
-				while (Character.toString(currentChar).matches("[0-9]")) {
+				while (Character.toString(currentChar).matches("\\d")) {
 					tkValue += currentChar;
 					currentChar = nextChar();
 				}
@@ -183,9 +184,6 @@ public class Analyzer2M {
 				}
 
 				break;
-			case '-': // Compondo um token que pode ser operador aditivo ou
-						// constante numérica
-				break;
 
 			default:
 				tkValue += currentChar;
@@ -209,8 +207,11 @@ public class Analyzer2M {
 	}
 
 	private TokenCategory analyzeCategory(String tkValue) {
-
-		if (LexicalTable.lexemMap.containsKey(tkValue)) {
+		
+		if (isOpNegUnary(tkValue)) {
+			return TokenCategory.OPNEGUN;
+			
+		} else if (LexicalTable.lexemMap.containsKey(tkValue)) {
 			return LexicalTable.lexemMap.get(tkValue);
 
 		} else if (isCchar(tkValue)) {
@@ -219,12 +220,41 @@ public class Analyzer2M {
 		} else if (isChar(tkValue)) {
 			return TokenCategory.CONSTCHAR;
 
+		} else if (isConstInt(tkValue)) {
+			return TokenCategory.CONSTNUMINT;
+
+		} else if (isConstDec(tkValue)) {
+			return TokenCategory.CONSTNUMDEC;
+
 		} else if (isIdentifier(tkValue)) {
 			return TokenCategory.ID;
-
 		}
 
 		return TokenCategory.UNKNOWN;
+	}
+
+	private boolean isOpNegUnary(String tkValue) {
+		
+		if(tkValue == "-") { // Decide se o - é o operador aditivo ou se é o unário negativo
+			
+		}
+		return false;
+	}
+
+	private boolean isConstDec(String tkValue) {
+		if (tkValue.matches("(\\d)+\\.(\\d)+")) {
+			return true;
+		} else if (tkValue.matches("(\\d)+\\.")) {
+			System.out.println("Constante decimal em formato errado.");
+		}
+		return false;
+	}
+
+	private boolean isConstInt(String tkValue) {
+		if (tkValue.matches("(\\d)+")) {
+			return true;
+		}
+		return false;
 	}
 
 	private char nextChar() {
@@ -267,18 +297,17 @@ public class Analyzer2M {
 			} else {
 				System.out.println("Identificador muito longo.");
 			}
-		} else
-		// Caso em que o identificador não começa com o caractere esperado.
-		// Também não considera tkValue que começa com " ou ', pois caso algum
-		// tkValue nessa condição chegue até aqui, é um cchar ou um char que não
-		// foi propriamente fechado.
-		if (tkValue.matches("[^_a-zA-Z\"'].*")) {
+
+			// Caso em que o identificador não começa com o caractere esperado.
+			// Também não considera tkValue que começa com ", ' ou número pois caso
+			// algum tkValue nessa condição chegue até aqui, é um cchar ou um char que
+			// não foi propriamente fechado, ou uma constante decimal em formato errado.
+		} else if (tkValue.matches("[^_a-zA-Z0-9\"'].*")) {
 			System.out.println("Identificador não iniciado com letra ou '_'.");
 
-		} else
-		// Caso em que o identificador começa com o caracter esperado, mas
-		// contém algum caracter inválido,
-		if (tkValue.matches("[_a-zA-Z].*")) {
+			// Caso em que o identificador começa com o caracter esperado, mas
+			// contém algum caracter inválido,
+		} else if (tkValue.matches("[_a-zA-Z].*")) {
 			System.out.println("Identificador contém caracter inválido.");
 
 		}
