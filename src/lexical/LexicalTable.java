@@ -74,7 +74,6 @@ public class LexicalTable {
 		symbolList.add('*');
 		symbolList.add('\\');
 		symbolList.add('/');
-		symbolList.add('_');
 		symbolList.add('#');
 		symbolList.add('$');
 		symbolList.add('<');
