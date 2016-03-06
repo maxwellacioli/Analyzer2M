@@ -148,11 +148,12 @@ public class Analyzer2M {
 
 		} else if (isCchar(tkValue)) {
 			return TokenCategory.CONSTCCHAR;
-			
-		} else {
-			// TODO Validar constante string, char e numérica
 
-		}
+		} else if (isChar(tkValue)) {
+			return TokenCategory.CONSTCHAR;
+
+		} 
+		
 		return TokenCategory.UNKNOWN;
 	}
 
@@ -172,9 +173,10 @@ public class Analyzer2M {
 	private boolean isCchar(String tkValue) {
 		if (tkValue.startsWith("\"") && tkValue.endsWith("\"")) {
 			return true;
+		} else if (tkValue.startsWith("\"")) {
+			System.out
+					.println("Cadeia de caracteres não fechada corretamente com '\"'.");
 		}
-		//TODO arrumar outra forma de especificar o erro...
-		//System.err.println("CCHAR no formato errado");
 		return false;
 	}
 
@@ -182,7 +184,6 @@ public class Analyzer2M {
 		if (tkValue.matches("\'.\'")) {
 			return true;
 		}
-		//System.err.println("CHAR no formato errado");
 		return false;
 	}
 
