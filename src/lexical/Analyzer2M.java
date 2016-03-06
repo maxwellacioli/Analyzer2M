@@ -9,7 +9,7 @@ public class Analyzer2M {
 
 	private List<String> linesList = new ArrayList<>();
 	private int currentLine, currentColumn, tkBeginColumn = 0;
-	
+
 	private static final char LINE_BREAK = '\0';
 
 	public static void main(String[] args) {
@@ -96,37 +96,37 @@ public class Analyzer2M {
 			if (currentChar == LINE_BREAK) {
 				break;
 			}
-			
+
 		}
 
 		if (tkValue == "") {
 
 			if (currentChar == '"') {
-				tkValue += currentChar;				
+				tkValue += currentChar;
 				currentChar = nextChar();
-				
-				while(currentChar != LINE_BREAK) {
-					
+
+				while (currentChar != LINE_BREAK) {
+
 					tkValue += currentChar;
 					currentChar = nextChar();
-					
-					if(currentChar == '"') {
-				
+
+					if (currentChar == '"') {
+
 						tkValue += currentChar;
 						currentColumn++;
 						break;
-						
+
 					}
-					
+
 				}
-					
+
 			} else {
-				
+
 				tkValue += currentChar;
 				currentColumn++;
-				
+
 			}
-			
+
 		}
 
 		token = new Token();
@@ -143,52 +143,51 @@ public class Analyzer2M {
 
 	private TokenCategory analyzeCategory(String tkValue) {
 
-		
-		
-		if(LexicalTable.lexemMap.containsKey(tkValue)) {
+		if (LexicalTable.lexemMap.containsKey(tkValue)) {
 			return LexicalTable.lexemMap.get(tkValue);
+
+		} else if (isCchar(tkValue)) {
+			return TokenCategory.CONSTCCHAR;
 			
 		} else {
-			
 			// TODO Validar constante string, char e numérica
-			
+
 		}
 		return TokenCategory.UNKNOWN;
 	}
-	
-	
 
 	private char nextChar() {
-		
+
 		String line = linesList.get(currentLine);
 		currentColumn++;
-		
-		if(currentColumn < line.length()) {
+
+		if (currentColumn < line.length()) {
 			return line.charAt(currentColumn);
 		} else {
 			return LINE_BREAK;
 		}
-		
+
 	}
-	
+
 	private boolean isCchar(String tkValue) {
-		if(tkValue.startsWith("\"") && tkValue.endsWith("\"")) {
+		if (tkValue.startsWith("\"") && tkValue.endsWith("\"")) {
 			return true;
 		}
-		System.err.println("CCHAR no formato errado");
+		//TODO arrumar outra forma de especificar o erro...
+		//System.err.println("CCHAR no formato errado");
 		return false;
 	}
-	
+
 	private boolean isChar(String tkValue) {
-		if(tkValue.matches("\'.\'")) {
+		if (tkValue.matches("\'.\'")) {
 			return true;
 		}
-		System.err.println("CHAR no formato errado");
+		//System.err.println("CHAR no formato errado");
 		return false;
 	}
-	
+
 	private boolean isIdentifier() {
 		return false;
 	}
-	
+
 }
