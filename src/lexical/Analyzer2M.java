@@ -80,6 +80,7 @@ public class Analyzer2M {
 		// Ignora sequência de espaços vazios
 		while (currentChar == ' ') {
 			currentChar = nextChar();
+			tkBeginColumn++;
 			if (currentChar == LINE_BREAK) {
 				break;
 			}
@@ -101,30 +102,29 @@ public class Analyzer2M {
 
 		if (tkValue == "") {
 
-			// Compondo um token que possivelmente é um cchar
-			if (currentChar == '"') {
+			switch (currentChar) {
+			
+			case '"': // Compondo um token que possivelmente é um cchar
+
 				tkValue += currentChar;
 				currentChar = nextChar();
 
 				// Buscar os próximos caracteres até que encontre uma ", ou
 				// acabe a linha
 				while (currentChar != LINE_BREAK) {
-
 					tkValue += currentChar;
 					currentChar = nextChar();
 
 					if (currentChar == '"') {
-
 						tkValue += currentChar;
 						currentColumn++;
 						break;
-
 					}
-
 				}
+				break;
 
-			// Compondo um token que possivelmente é um char
-			} else if (currentChar == '\'') {
+			case '\'': // Compondo um token que possivelmente é um char
+
 				tkValue += currentChar;
 
 				// Buscar os próximos dois caracteres
@@ -133,15 +133,31 @@ public class Analyzer2M {
 					tkValue += currentChar;
 				}
 				currentChar = nextChar();
-				if (currentChar != LINE_BREAK && currentChar == '\'') {
+				if (currentChar == '\'') {
 					tkValue += currentChar;
-				}
-				currentColumn++;
-			} else {
+					currentColumn++;
+				}				
+				break;
 
+			case '<': case '>': case '~': case '=': // Compondo um token que pode ser <=, >=, ~= ou ==
+				
+				tkValue += currentChar;
+				currentChar = nextChar();
+				if (currentChar == '=') {
+					tkValue += currentChar;
+					currentColumn++;	
+				}
+				break;
+				
+			case '+': // Compondo um token que pode ser operador aditivo, de concatenação ou constante numérica
+				break;
+			case '-': // Compondo um token que pode ser operador aditivo ou constante numérica
+				break;
+				
+			default:
 				tkValue += currentChar;
 				currentColumn++;
-
+				break;
 			}
 
 		}

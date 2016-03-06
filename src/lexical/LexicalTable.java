@@ -20,6 +20,8 @@ public class LexicalTable {
 		lexemMap.put("*", TokenCategory.OPARITMULT);
 		lexemMap.put("/", TokenCategory.OPARITMULT);
 		lexemMap.put("^", TokenCategory.OPARITEXP);
+		lexemMap.put("+", TokenCategory.OPARITADIT);
+		
 		lexemMap.put("<", TokenCategory.OPREL);
 		lexemMap.put(">", TokenCategory.OPREL);
 		lexemMap.put("<", TokenCategory.OPREL);
@@ -27,6 +29,8 @@ public class LexicalTable {
 		lexemMap.put(">=", TokenCategory.OPREL);
 		lexemMap.put("==", TokenCategory.OPREL);
 		lexemMap.put("~=", TokenCategory.OPREL);
+		
+		lexemMap.put("=", TokenCategory.OPATRIB);
 		lexemMap.put("++", TokenCategory.OPCONC);
 		
 		// Delimitadores
