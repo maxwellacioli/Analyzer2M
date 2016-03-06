@@ -8,7 +8,7 @@ import java.util.List;
 public class Analyzer2M {
 
 	private List<String> linesList = new ArrayList<>();
-	private int currentLine, currentColumn = 0;
+	private int currentLine, currentColumn, tkBeginColumn = 0;
 	
 	private static final char LINE_BREAK = '\0';
 
@@ -70,7 +70,8 @@ public class Analyzer2M {
 		String line = linesList.get(currentLine);
 		char currentChar;
 		String tkValue = "";
-		int tkBeginColumn = currentColumn;
+
+		tkBeginColumn = currentColumn;
 
 		// Percorre a linha a partir da proxima coluna a ser analisada lendo
 		// caracter a caracter
@@ -142,12 +143,21 @@ public class Analyzer2M {
 
 	private TokenCategory analyzeCategory(String tkValue) {
 
-		if (LexicalTable.keyWordMap.containsKey(tkValue)) {
-			return LexicalTable.keyWordMap.get(tkValue);
+		
+		
+		if(LexicalTable.lexemMap.containsKey(tkValue)) {
+			return LexicalTable.lexemMap.get(tkValue);
+			
+		} else {
+			
+			// TODO Validar constante string, char e numérica
+			
 		}
-		return null;
+		return TokenCategory.UNKNOWN;
 	}
 	
+	
+
 	private char nextChar() {
 		
 		String line = linesList.get(currentLine);
@@ -160,4 +170,25 @@ public class Analyzer2M {
 		}
 		
 	}
+	
+	private boolean isCchar(String tkValue) {
+		if(tkValue.startsWith("\"") && tkValue.endsWith("\"")) {
+			return true;
+		}
+		System.err.println("CCHAR no formato errado");
+		return false;
+	}
+	
+	private boolean isChar(String tkValue) {
+		if(tkValue.matches("\'.\'")) {
+			return true;
+		}
+		System.err.println("CHAR no formato errado");
+		return false;
+	}
+	
+	private boolean isIdentifier() {
+		return false;
+	}
+	
 }

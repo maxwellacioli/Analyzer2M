@@ -7,30 +7,65 @@ import java.util.Map;
 
 public class LexicalTable {
 
-	public static Map<String, TokenCategory> keyWordMap = new HashMap<>();
+	public static Map<String, TokenCategory> lexemMap = new HashMap<>();
+	public static Map<String, TokenCategory> delimitadorMap = new HashMap<>();
 	public static List<Character> symbolList = new ArrayList<>();
 	
 	static {
+	
+		//Operadores
 		
-		keyWordMap.put("char", TokenCategory.TCHAR);
-		keyWordMap.put("cchar", TokenCategory.TCCHAR);
-		keyWordMap.put("dec", TokenCategory.TDEC);
-		keyWordMap.put("int", TokenCategory.TINT);
-		keyWordMap.put("logic", TokenCategory.TLOGIC);
-		keyWordMap.put("major", TokenCategory.MAJOR);
-		keyWordMap.put("if", TokenCategory.PRIF);
-		keyWordMap.put("else", TokenCategory.PRELSE);
-		keyWordMap.put("elseif", TokenCategory.PRELSEIF);
-		keyWordMap.put("iterator", TokenCategory.PRITERATOR);
-		keyWordMap.put("while", TokenCategory.PRWHILE);
-		keyWordMap.put("do", TokenCategory.PRDO);
-		keyWordMap.put("truth", TokenCategory.OPLOGIC);
-		keyWordMap.put("false", TokenCategory.OPLOGIC);
-		keyWordMap.put("not", TokenCategory.OPNEGLOGIC);
-		keyWordMap.put("and", TokenCategory.OPLOGIC);
-		keyWordMap.put("or", TokenCategory.OPLOGIC);
-		keyWordMap.put("empty", TokenCategory.TEMPTY);
-				
+		lexemMap.put("+", TokenCategory.OPARITADIT);
+		lexemMap.put("-", TokenCategory.OPARITADIT);
+		lexemMap.put("*", TokenCategory.OPARITMULT);
+		lexemMap.put("/", TokenCategory.OPARITMULT);
+		lexemMap.put("^", TokenCategory.OPARITEXP);
+		lexemMap.put("<", TokenCategory.OPREL);
+		lexemMap.put(">", TokenCategory.OPREL);
+		lexemMap.put("<", TokenCategory.OPREL);
+		lexemMap.put("<=", TokenCategory.OPREL);
+		lexemMap.put(">=", TokenCategory.OPREL);
+		lexemMap.put("==", TokenCategory.OPREL);
+		lexemMap.put("~=", TokenCategory.OPREL);
+		lexemMap.put("++", TokenCategory.OPCONC);
+		
+		// Delimitadores
+		
+		lexemMap.put("(", TokenCategory.PARAMBEGIN);
+		lexemMap.put(")", TokenCategory.PARAMEND);
+		lexemMap.put("[", TokenCategory.ESCBEGIN);
+		lexemMap.put("]", TokenCategory.ESCEND);
+		lexemMap.put("{", TokenCategory.ARRAYBEGIN);
+		lexemMap.put("}", TokenCategory.ARRAYEND);
+		lexemMap.put("/$", TokenCategory.COMBEGIN);
+		lexemMap.put("$/", TokenCategory.COMEND);
+		
+		// Terminador
+		
+		lexemMap.put("#", TokenCategory.TERM);
+		
+		// Palavras-reservadas (comandos e operadores)
+		
+		lexemMap.put("char", TokenCategory.TCHAR);
+		lexemMap.put("cchar", TokenCategory.TCCHAR);
+		lexemMap.put("dec", TokenCategory.TDEC);
+		lexemMap.put("int", TokenCategory.TINT);
+		lexemMap.put("logic", TokenCategory.TLOGIC);
+		lexemMap.put("major", TokenCategory.MAJOR);
+		lexemMap.put("if", TokenCategory.PRIF);
+		lexemMap.put("else", TokenCategory.PRELSE);
+		lexemMap.put("elseif", TokenCategory.PRELSEIF);
+		lexemMap.put("iterator", TokenCategory.PRITERATOR);
+		lexemMap.put("while", TokenCategory.PRWHILE);
+		lexemMap.put("do", TokenCategory.PRDO);
+		lexemMap.put("truth", TokenCategory.CONSTLOGIC);
+		lexemMap.put("false", TokenCategory.CONSTLOGIC);
+		lexemMap.put("not", TokenCategory.OPNEGLOGIC);
+		lexemMap.put("and", TokenCategory.OPLOGICAND);
+		lexemMap.put("or", TokenCategory.OPLOGICOR);
+		lexemMap.put("empty", TokenCategory.TEMPTY);
+		
+		// Símbolos que podem indicador próximo token 
 		symbolList.add(' ');
 		symbolList.add(',');
 		symbolList.add(';');		
