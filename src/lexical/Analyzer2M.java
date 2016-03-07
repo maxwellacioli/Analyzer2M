@@ -205,6 +205,12 @@ public class Analyzer2M {
 
 		}
 
+		//Verificaçãod de palavras vazias
+		if (tkValue.length() == 0) {
+			return nextToken();
+		}
+
+		//Eliminação de tab de palavras
 		tkValue = tkValue.trim();
 
 		token = new Token();
