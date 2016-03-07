@@ -33,7 +33,7 @@ public class Analyzer2M {
 		BufferedReader br;
 
 		try {
-			br = new BufferedReader(new FileReader("files/hello.2m"));
+			br = new BufferedReader(new FileReader("files/fibonacci.2m"));
 
 			String brLine = br.readLine();
 
@@ -49,7 +49,7 @@ public class Analyzer2M {
 	}
 
 	private boolean hasMoreTokens() {
-		
+
 		if (!linesList.isEmpty()) {
 
 			line = linesList.get(currentLine);
@@ -276,7 +276,7 @@ public class Analyzer2M {
 	private boolean isOpNegUnary(String tkValue) {
 
 		if (tkValue.equals("-")) { // Decide se o - é o operador aditivo ou se é
-								   // o unário negativo
+									// o unário negativo
 
 			Character previousChar = previousNotBlankChar();
 			if ((previousChar != null)

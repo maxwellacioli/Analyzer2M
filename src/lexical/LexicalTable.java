@@ -10,30 +10,30 @@ public class LexicalTable {
 	public static Map<String, TokenCategory> lexemMap = new HashMap<>();
 	public static Map<String, TokenCategory> delimitadorMap = new HashMap<>();
 	public static List<Character> symbolList = new ArrayList<>();
-	
+
 	static {
-	
-		//Operadores
-		
+
+		// Operadores
+
 		lexemMap.put("+", TokenCategory.OPARITADIT);
 		lexemMap.put("-", TokenCategory.OPARITADIT);
 		lexemMap.put("*", TokenCategory.OPARITMULT);
 		lexemMap.put("/", TokenCategory.OPARITMULT);
 		lexemMap.put("^", TokenCategory.OPARITEXP);
 		lexemMap.put("+", TokenCategory.OPARITADIT);
-		
+
 		lexemMap.put("<", TokenCategory.OPREL1);
 		lexemMap.put(">", TokenCategory.OPREL1);
 		lexemMap.put("<=", TokenCategory.OPREL1);
 		lexemMap.put(">=", TokenCategory.OPREL1);
 		lexemMap.put("==", TokenCategory.OPREL2);
 		lexemMap.put("~=", TokenCategory.OPREL2);
-		
+
 		lexemMap.put("=", TokenCategory.OPATRIB);
 		lexemMap.put("++", TokenCategory.OPCONC);
-		
+
 		// Delimitadores
-		
+
 		lexemMap.put("(", TokenCategory.PARAMBEGIN);
 		lexemMap.put(")", TokenCategory.PARAMEND);
 		lexemMap.put("[", TokenCategory.ESCBEGIN);
@@ -42,13 +42,17 @@ public class LexicalTable {
 		lexemMap.put("}", TokenCategory.ARRAYEND);
 		lexemMap.put("/$", TokenCategory.COMBEGIN);
 		lexemMap.put("$/", TokenCategory.COMEND);
-		
+
 		// Terminador
-		
+
 		lexemMap.put("#", TokenCategory.TERM);
-		
+
+		// Separador
+
+		lexemMap.put(",", TokenCategory.SEPARATOR);
+
 		// Palavras-reservadas (comandos e operadores)
-		
+
 		lexemMap.put("char", TokenCategory.TCHAR);
 		lexemMap.put("cchar", TokenCategory.TCCHAR);
 		lexemMap.put("dec", TokenCategory.TDEC);
@@ -67,11 +71,11 @@ public class LexicalTable {
 		lexemMap.put("and", TokenCategory.OPLOGICAND);
 		lexemMap.put("or", TokenCategory.OPLOGICOR);
 		lexemMap.put("empty", TokenCategory.TEMPTY);
-		
-		// Símbolos que podem indicador próximo token 
+
+		// Símbolos que podem indicador próximo token
 		symbolList.add(' ');
 		symbolList.add(',');
-		symbolList.add(';');		
+		symbolList.add(';');
 		symbolList.add('+');
 		symbolList.add('-');
 		symbolList.add('*');
@@ -91,7 +95,7 @@ public class LexicalTable {
 		symbolList.add('}');
 		symbolList.add('\'');
 		symbolList.add('"');
-		
+
 	}
 
 }
