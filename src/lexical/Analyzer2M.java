@@ -33,7 +33,8 @@ public class Analyzer2M {
 		BufferedReader br;
 
 		try {
-			br = new BufferedReader(new FileReader("files/fibonacci.2m"));
+			// br = new BufferedReader(new FileReader("files/fibonacci.2m"));
+			br = new BufferedReader(new FileReader("files/hello.2m"));
 
 			String brLine = br.readLine();
 
@@ -141,6 +142,12 @@ public class Analyzer2M {
 				tkValue += currentChar;
 				currentChar = nextChar();
 
+				if (currentChar == '"') {
+					tkValue += currentChar;
+					currentColumn++;
+					break;
+				}
+
 				// Buscar os próximos caracteres até que encontre uma ", ou
 				// acabe a linha
 				while (currentChar != LINE_BREAK) {
@@ -205,12 +212,12 @@ public class Analyzer2M {
 
 		}
 
-		//Verificaçãod de palavras vazias
+		// Verificaçãod de palavras vazias
 		if (tkValue.length() == 0) {
 			return nextToken();
 		}
 
-		//Eliminação de tab de palavras
+		// Eliminação de tab de palavras
 		tkValue = tkValue.trim();
 
 		token = new Token();
