@@ -35,6 +35,7 @@ public class Analyzer2M {
 		try {
 			// br = new BufferedReader(new FileReader("files/fibonacci.2m"));
 			br = new BufferedReader(new FileReader("files/hello.2m"));
+			// br = new BufferedReader(new FileReader("files/shellsort.2m"));
 
 			String brLine = br.readLine();
 
@@ -162,6 +163,35 @@ public class Analyzer2M {
 				}
 				break;
 
+			// Verificação de comentários
+			case '/':
+				tkValue += currentChar;
+				currentChar = nextChar();
+				if (currentChar == '$') {
+					tkValue += currentChar;
+					currentChar = nextChar();
+					while (currentChar != '$') {
+						if (currentChar == LINE_BREAK) {
+							currentLine++;
+							if (currentLine < linesList.size()) {
+								break;
+							}
+						}
+						currentChar = nextChar();
+					}
+				}
+				break;
+
+			// TODO AJEITAR
+			case '$':
+				tkValue += currentChar;
+				currentChar = nextChar();
+				if (currentChar == '/') {
+					tkValue += currentChar;
+					currentChar = nextChar();
+					break;
+				}
+
 			case '\'': // Compondo um token que possivelmente é um char
 
 				tkValue += currentChar;
@@ -212,7 +242,7 @@ public class Analyzer2M {
 
 		}
 
-		// Verificaçãod de palavras vazias
+		// Verificação de palavras vazias
 		if (tkValue.length() == 0) {
 			return nextToken();
 		}
