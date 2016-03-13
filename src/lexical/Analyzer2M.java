@@ -5,8 +5,6 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.sound.sampled.LineListener;
-
 public class Analyzer2M {
 
 	private List<String> linesList = new ArrayList<>();

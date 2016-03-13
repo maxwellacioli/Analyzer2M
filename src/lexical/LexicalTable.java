@@ -40,8 +40,7 @@ public class LexicalTable {
 		lexemMap.put("]", TokenCategory.ESCEND);
 		lexemMap.put("{", TokenCategory.ARRAYBEGIN);
 		lexemMap.put("}", TokenCategory.ARRAYEND);
-		lexemMap.put("/$", TokenCategory.COMBEGIN);
-		lexemMap.put("$/", TokenCategory.COMEND);
+		lexemMap.put("/$", TokenCategory.COMMENT);
 
 		// Terminador
 
