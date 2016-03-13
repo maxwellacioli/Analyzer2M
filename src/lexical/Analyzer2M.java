@@ -36,8 +36,8 @@ public class Analyzer2M {
 
 		try {
 			// br = new BufferedReader(new FileReader("files/fibonacci.2m"));
-			// br = new BufferedReader(new FileReader("files/hello.2m"));
-			br = new BufferedReader(new FileReader("files/shellsort.2m"));
+			br = new BufferedReader(new FileReader("files/hello.2m"));
+			// br = new BufferedReader(new FileReader("files/shellsort.2m"));
 
 			String brLine = br.readLine();
 
