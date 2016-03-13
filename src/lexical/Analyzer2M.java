@@ -5,6 +5,8 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.sound.sampled.LineListener;
+
 public class Analyzer2M {
 
 	private List<String> linesList = new ArrayList<>();
@@ -169,28 +171,55 @@ public class Analyzer2M {
 				currentChar = nextChar();
 				if (currentChar == '$') {
 					tkValue += currentChar;
-					currentChar = nextChar();
-					while (currentChar != '$') {
-						if (currentChar == LINE_BREAK) {
-							currentLine++;
-							if (currentLine < linesList.size()) {
+					currentColumn++;
+					char currentCharAux = ' ';
+					if (hasMoreTokens()) {
+						currentChar = line.charAt(currentColumn++);
+						if (currentColumn < line.length()) {
+							currentCharAux = line.charAt(currentColumn);
+						}
+					}
+					while (!linesList.isEmpty()) {
+						System.out.println(currentColumn);
+						System.out.println(currentChar);
+						System.out.println(currentCharAux);
+						
+						if (currentChar == '$') {
+							if (currentCharAux == '/') {
+								currentColumn--;
 								break;
 							}
 						}
-						currentChar = nextChar();
+
+						if (currentColumn < line.length()) {
+							if (currentColumn < line.length() - 1) {
+								currentChar = line.charAt(currentColumn++);
+								currentCharAux = line.charAt(currentColumn);
+							} else {
+								currentChar = line.charAt(currentColumn++);
+								currentCharAux = ' ';
+							}
+
+						} else {
+							currentLine++;
+							currentColumn = 0;
+							line = linesList.get(currentLine);
+							currentChar = line.charAt(currentColumn++);
+							currentCharAux = line.charAt(currentColumn);
+						}
 					}
 				}
 				break;
 
-			// TODO AJEITAR
+			// TODO AJEITAR -> Verificar se tem abre comentario antes;
 			case '$':
 				tkValue += currentChar;
 				currentChar = nextChar();
 				if (currentChar == '/') {
 					tkValue += currentChar;
 					currentChar = nextChar();
-					break;
 				}
+				break;
 
 			case '\'': // Compondo um token que possivelmente é um char
 

@@ -1,4 +1,5 @@
 major () empty [
 	printout ("Hello World")#
-	; cchar a = ""#
+    /$ cchar a = ""#
 ]#
+$$$$/
