@@ -1,5 +1,8 @@
+/$ Hello World
+
 major () empty [
-	printout ("Hello World")#
-    /$ cchar a = ""#
+	printout ("Hello World")#	
 ]#
-$$$$/
+					
+/$ The end
+																		

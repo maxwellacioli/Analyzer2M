@@ -10,7 +10,7 @@ import javax.sound.sampled.LineListener;
 public class Analyzer2M {
 
 	private List<String> linesList = new ArrayList<>();
-	private int currentLine, currentColumn, tkBeginColumn = 0;
+	private int currentLine, currentColumn, tkBeginColumn = 0, tkBeginLine = 0;
 	private String line;
 
 	private static final char LINE_BREAK = '\n';
@@ -25,7 +25,9 @@ public class Analyzer2M {
 
 		while (analyzer2M.hasMoreTokens()) {
 			token = analyzer2M.nextToken();
-			System.out.println(token);
+			if (token != null) {
+				System.out.println(token);
+			}
 		}
 
 	}
@@ -36,8 +38,8 @@ public class Analyzer2M {
 
 		try {
 			// br = new BufferedReader(new FileReader("files/fibonacci.2m"));
-			br = new BufferedReader(new FileReader("files/hello.2m"));
-			// br = new BufferedReader(new FileReader("files/shellsort.2m"));
+			// br = new BufferedReader(new FileReader("files/hello.2m"));
+			br = new BufferedReader(new FileReader("files/shellsort.2m"));
 
 			String brLine = br.readLine();
 
@@ -56,17 +58,19 @@ public class Analyzer2M {
 
 		if (!linesList.isEmpty()) {
 
-			line = linesList.get(currentLine);
+			if (currentLine < linesList.size()) {
+				line = linesList.get(currentLine);
 
-			if (currentColumn < line.length()) {
-				return true;
-			} else {
-				currentLine++;
-				currentColumn = 0;
-
-				if (currentLine < linesList.size()) {
-					line = linesList.get(currentLine);
+				if (currentColumn < line.length()) {
 					return true;
+				} else {
+					currentLine++;
+					currentColumn = 0;
+
+					if (currentLine < linesList.size()) {
+						line = linesList.get(currentLine);
+						return true;
+					}
 				}
 			}
 		}
@@ -82,12 +86,14 @@ public class Analyzer2M {
 		String tkValue = "";
 
 		tkBeginColumn = currentColumn;
+		tkBeginLine = currentLine;
 
-		// Percorre a linha a partir da proxima coluna a ser analisada lendo
-		// caracter a caracter
-		if (line.length() == 0) {
+		// Ignora linhas em branco
+		if (line.isEmpty()) {
 			if (hasMoreTokens()) {
 				return nextToken();
+			} else {
+				return null;
 			}
 		}
 
@@ -98,7 +104,7 @@ public class Analyzer2M {
 			currentChar = nextChar();
 			tkBeginColumn++;
 			if (currentChar == LINE_BREAK) {
-				break;
+				return null;
 			}
 		}
 
@@ -165,49 +171,15 @@ public class Analyzer2M {
 				}
 				break;
 
-			// Verificação de comentários
+			// TODO Verificação de comentários
 			case '/':
 				tkValue += currentChar;
 				currentChar = nextChar();
+
 				if (currentChar == '$') {
 					tkValue += currentChar;
-					currentColumn++;
-					char currentCharAux = ' ';
-					if (hasMoreTokens()) {
-						currentChar = line.charAt(currentColumn++);
-						if (currentColumn < line.length()) {
-							currentCharAux = line.charAt(currentColumn);
-						}
-					}
-					while (!linesList.isEmpty()) {
-						System.out.println(currentColumn);
-						System.out.println(currentChar);
-						System.out.println(currentCharAux);
-						
-						if (currentChar == '$') {
-							if (currentCharAux == '/') {
-								currentColumn--;
-								break;
-							}
-						}
-
-						if (currentColumn < line.length()) {
-							if (currentColumn < line.length() - 1) {
-								currentChar = line.charAt(currentColumn++);
-								currentCharAux = line.charAt(currentColumn);
-							} else {
-								currentChar = line.charAt(currentColumn++);
-								currentCharAux = ' ';
-							}
-
-						} else {
-							currentLine++;
-							currentColumn = 0;
-							line = linesList.get(currentLine);
-							currentChar = line.charAt(currentColumn++);
-							currentCharAux = line.charAt(currentColumn);
-						}
-					}
+					currentLine++;
+					currentColumn = 0;
 				}
 				break;
 
@@ -271,18 +243,12 @@ public class Analyzer2M {
 
 		}
 
-		// Verificação de palavras vazias
-		if (tkValue.length() == 0) {
-			return nextToken();
-		}
-
-		// Eliminação de tab de palavras
 		tkValue = tkValue.trim();
 
 		token = new Token();
 
 		token.setValue(tkValue);
-		token.setLine(currentLine);
+		token.setLine(tkBeginLine);
 		token.setColumn(tkBeginColumn);
 		token.setCategory(analyzeCategory(tkValue));
 
