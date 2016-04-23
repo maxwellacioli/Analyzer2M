@@ -1,12 +1,3 @@
-major () empty [
-	shell_sort( int array{10} ) int { }#
-	
-	int unsorted{10}#
-	int sorted{10}#
-	unsorted= {9, 8, 3, 2, 5, 1, 4, 7, 6, 0}#
-	sorted = shell_sort(unsorted)#
-
-]#
 
 shell_sort( int array{10} ) int { }[
 	
@@ -32,4 +23,13 @@ shell_sort( int array{10} ) int { }[
 			array{j + h} = value#
 		]#
 	]#	
+]#
+
+major () empty [
+	
+	int unsorted{10}#
+	int sorted{10}#
+	unsorted= {9, 8, 3, 2, 5, 1, 4, 7, 6, 0}#
+	sorted = shell_sort(unsorted)#
+
 ]#

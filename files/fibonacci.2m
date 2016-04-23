@@ -1,9 +1,3 @@
-major () empty [
-	fibonacci( int limit ) empty#
-	int limit#
-	readin ( int , limit)#
-	fibonacci(limit)#
-]#
 
 fibonacci( int limit ) empty [
 	int count#
@@ -28,4 +22,10 @@ fibonacci( int limit ) empty [
 	]#
 	count = count +1#
 	]#
+]#
+
+major () empty [
+	int limit#
+	readin ( int , limit)#
+	fibonacci(limit)#
 ]#

@@ -71,7 +71,9 @@ public class LexicalTable {
 		lexemMap.put("and", TokenCategory.OPLOGICAND);
 		lexemMap.put("or", TokenCategory.OPLOGICOR);
 		lexemMap.put("empty", TokenCategory.TEMPTY);
-
+		lexemMap.put("printout", TokenCategory.PRPRINTOUT);
+		lexemMap.put("readin", TokenCategory.PRREADIN);
+		
 		// Símbolos que podem indicador próximo token
 		symbolList.add(' ');
 		symbolList.add(',');
