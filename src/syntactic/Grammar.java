@@ -1,40 +1,40 @@
 package syntactic;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Grammar {
-	private HashMap<Integer, ArrayList<Symbol>> grammarMap;
+	private HashMap<Integer, Derivation> grammarMap;
+	private Derivation derivationAux;
 
 	public Grammar() {
+		grammarMap = new HashMap<Integer, Derivation>();
 
-		grammarMap = new HashMap<Integer, ArrayList<Symbol>>();
+		derivationAux = new Derivation(1);
+		derivationAux.addDerivationSymbols(new NonTerminal(
+				NonTerminalName.FUNCTIONS.getNonTerminalValue()),
+				new NonTerminal(NonTerminalName.MAJORF.getNonTerminalValue()));
 
-		ArrayList<Symbol> symbolList = new ArrayList<Symbol>();
+		grammarMap.put(1, derivationAux);
 
-		symbolList.add(new Symbol(false, NonTerminal.FUNCTIONS));
-		symbolList.add(new Symbol(false, NonTerminal.MAJOR));
-		grammarMap.put(1, symbolList);
-		
-		symbolList.clear();
-		
-		symbolList.add(new Symbol(true, Terminal.ID));
-		symbolList.add(new Symbol(false, NonTerminal.PARAMS));
-		symbolList.add(new Symbol(false, NonTerminal.RETURNTYPE));
-		symbolList.add(new Symbol(false, NonTerminal.ESCOPE));
-		symbolList.add(new Symbol(false, NonTerminal.FUNCTIONS));
-		
-		symbolList.clear();
-		
-		symbolList.add(new Symbol(null, null));
-		
-		grammarMap.put(2, symbolList);
-		
+		derivationAux
+				.addDerivationSymbols(
+						new Terminal(TerminalCategory.ID.getTerminalCategory()),
+						new NonTerminal(NonTerminalName.PARAMS
+								.getNonTerminalValue()),
+						new NonTerminal(NonTerminalName.RETURNTYPE
+								.getNonTerminalValue()),
+						new NonTerminal(NonTerminalName.ESCOPE
+								.getNonTerminalValue()),
+						new NonTerminal(NonTerminalName.FUNCTIONS
+								.getNonTerminalValue()));
 
+		putGrammarMapElem(2, derivationAux);
 	}
 
-	private ArrayList<Symbol> getList() {
-		// TODO Auto-generated method stub
-		return null;
+	private void putGrammarMapElem(int key, Derivation derivation) {
+		derivation.setDerivationNumber(key);
+		grammarMap.put(key, derivation);
+		derivation.clearDerivationList();
 	}
+
 }
