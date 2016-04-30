@@ -73,6 +73,7 @@ public class LexicalTable {
 		lexemMap.put("empty", TokenCategory.TEMPTY);
 		lexemMap.put("printout", TokenCategory.PRPRINTOUT);
 		lexemMap.put("readin", TokenCategory.PRREADIN);
+		lexemMap.put("return", TokenCategory.PRRETURN);
 		
 		// Símbolos que podem indicador próximo token
 		symbolList.add(' ');

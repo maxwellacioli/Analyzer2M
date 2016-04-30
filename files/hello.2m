@@ -1,5 +1,4 @@
 major () empty [
 	printout ("Hello World")#	
-	int a{5}#
-	a = {"casa", 'b', 3 > 5, false, 5.4}#
+	
 ]#																		
