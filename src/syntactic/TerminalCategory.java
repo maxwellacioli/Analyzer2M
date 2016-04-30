@@ -47,15 +47,15 @@ public enum TerminalCategory {
 	OPATRIB(43), 
 	OPCONC(44);
 	
-	private int terminalCategory;
+	private int terminalValue;
 	
 	
 	private TerminalCategory(int value) {
-		terminalCategory = value;
+		terminalValue = value;
 	}
 	
 	public int getTerminalValue() {
-		return terminalCategory;
+		return terminalValue;
 	}
 
 }

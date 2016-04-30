@@ -1,6 +1,7 @@
 package syntactic;
 
 public enum NonTerminalName {
+	PROGRAM(0), 
 	MAJOR(1),
 	FUNCTIONS(2),
 	MAJORF(3),
@@ -41,16 +42,17 @@ public enum NonTerminalName {
 	DOWHILE(38),
 	ITERATOR(39),
 	RETURN(40),
-	RETURNFAT(41);
+	RETURNFAT(41),
+	EXPRESSION(42);
 	
-	private int value;
+	private int nonTerminalValue;
 	
 	private NonTerminalName(int value) {
-		this.value = value;
+		this.nonTerminalValue = value;
 	}
 	
 	public int getNonTerminalValue() {
-		return value;
+		return nonTerminalValue;
 	}
 
 }

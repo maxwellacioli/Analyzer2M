@@ -56,4 +56,15 @@ public class Derivation {
 		addDerivationSymbols(symb1, symb2, symb3, symb4, symb5, symb6, symb7);
 		derivation.add(symb8);
 	}
+
+	public void addDerivationSymbols(Symbol symb1, Symbol symb2, Symbol symb3,
+			Symbol symb4, Symbol symb5, Symbol symb6, Symbol symb7,
+			Symbol symb8, Symbol symb9, Symbol symb10, Symbol symb11) {
+		addDerivationSymbols(symb1, symb2, symb3, symb4, symb5, symb6, symb7,
+				symb8);
+		derivation.add(symb9);
+		derivation.add(symb10);
+		derivation.add(symb11);
+	}
+
 }
