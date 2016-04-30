@@ -46,21 +46,17 @@ public enum TerminalCategory {
 	OPREL2(42), 
 	OPATRIB(43), 
 	OPCONC(44);
-
-	private int terminalCategory;
-	private boolean isTerminal;
 	
-	private TerminalCategory(int category) {
-		terminalCategory = category;
-		this.isTerminal = true;
+	private int terminalCategory;
+	
+	
+	private TerminalCategory(int value) {
+		terminalCategory = value;
 	}
 	
-	public int getTerminalCategory() {
+	public int getTerminalValue() {
 		return terminalCategory;
 	}
-	
-	public boolean getTerminalIsTerminal() {
-		return isTerminal;
-	}
+
 }
 

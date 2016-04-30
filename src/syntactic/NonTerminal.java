@@ -2,7 +2,7 @@ package syntactic;
 
 public class NonTerminal extends Symbol{
 	
-	public NonTerminal(Integer value) {
-		super(false, value);
+	public NonTerminal(NonTerminalName terminalName) {
+		super(false, terminalName.getNonTerminalValue());
 	}
 }

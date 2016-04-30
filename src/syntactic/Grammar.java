@@ -9,28 +9,57 @@ public class Grammar {
 	public Grammar() {
 		grammarMap = new HashMap<Integer, Derivation>();
 
+		// (1)FUNCTIONS MAJORF
 		derivationAux = new Derivation(1);
 		derivationAux.addDerivationSymbols(new NonTerminal(
-				NonTerminalName.FUNCTIONS.getNonTerminalValue()),
-				new NonTerminal(NonTerminalName.MAJORF.getNonTerminalValue()));
+				NonTerminalName.FUNCTIONS), new NonTerminal(
+				NonTerminalName.MAJORF));
 
-		grammarMap.put(1, derivationAux);
+		grammarPutDerivation(1, derivationAux);
 
-		derivationAux.clearDerivationList();
-		derivationAux
-				.addDerivationSymbols(
-						new Terminal(TerminalCategory.ID.getTerminalCategory()),
-						new NonTerminal(NonTerminalName.PARAMS
-								.getNonTerminalValue()),
-						new NonTerminal(NonTerminalName.RETURNTYPE
-								.getNonTerminalValue()),
-						new NonTerminal(NonTerminalName.ESCOPE
-								.getNonTerminalValue()),
-						new NonTerminal(NonTerminalName.FUNCTIONS
-								.getNonTerminalValue()));
+		// (2)‘id’ PARAMS RETURNTYPE ESCOPE FUNCTIONS
+		derivationAux.addDerivationSymbols(new Terminal(TerminalCategory.ID),
+				new NonTerminal(NonTerminalName.PARAMS), new NonTerminal(
+						NonTerminalName.RETURNTYPE), new NonTerminal(
+						NonTerminalName.ESCOPE), new NonTerminal(
+						NonTerminalName.FUNCTIONS));
 
-		derivationAux.setDerivationNumber(2);
-		grammarMap.put(2, derivationAux);
+		grammarPutDerivation(2, derivationAux);
+
+		// (3)Epsilon
+		grammarPutDerivation(3, null);
+
+		// (4)‘major’ ‘paramBegin’ ‘paramEnd’ ‘tEmpty’ ESCOPE
+		derivationAux.addDerivationSymbols(
+				new Terminal(TerminalCategory.MAJOR), new Terminal(
+						TerminalCategory.PARAMBEGIN), new Terminal(
+						TerminalCategory.PARAMEND), new Terminal(
+						TerminalCategory.TEMPTY), new NonTerminal(
+						NonTerminalName.ESCOPE));
+
+		grammarPutDerivation(4, derivationAux);
+
+		// (5)‘paramBegin’ PARAMSFAT
+		derivationAux.addDerivationSymbols(new Terminal(
+				TerminalCategory.PARAMBEGIN), new NonTerminal(
+				NonTerminalName.PARAMSFAT));
+
+		grammarPutDerivation(5, derivationAux);
+
+		// (6)‘paramEnd’
+		derivationAux.addSymbol(new Terminal(TerminalCategory.PARAMEND));
+		grammarPutDerivation(6, derivationAux);
+
+		// (7)LISTPARAMS ‘paramEnd’
+		derivationAux.addDerivationSymbols(new NonTerminal(
+				NonTerminalName.LISTPARAMS), new Terminal(
+				TerminalCategory.PARAMEND));
+
+		grammarPutDerivation(7, derivationAux);
 	}
-	
+
+	private void grammarPutDerivation(int key, Derivation derivation) {
+		grammarMap.put(key, derivation);
+		derivation.clearDerivationList();
+	}
 }

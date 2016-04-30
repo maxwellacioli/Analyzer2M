@@ -44,18 +44,13 @@ public enum NonTerminalName {
 	RETURNFAT(41);
 	
 	private int value;
-	private boolean isTerminal;
 	
 	private NonTerminalName(int value) {
 		this.value = value;
-		this.isTerminal = false;
 	}
 	
 	public int getNonTerminalValue() {
 		return value;
 	}
-	
-	public boolean getNonTerminalIsTerminal() {
-		return isTerminal;
-	}
+
 }
