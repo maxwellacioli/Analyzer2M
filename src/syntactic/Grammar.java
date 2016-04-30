@@ -16,6 +16,7 @@ public class Grammar {
 
 		grammarMap.put(1, derivationAux);
 
+		derivationAux.clearDerivationList();
 		derivationAux
 				.addDerivationSymbols(
 						new Terminal(TerminalCategory.ID.getTerminalCategory()),
@@ -28,13 +29,8 @@ public class Grammar {
 						new NonTerminal(NonTerminalName.FUNCTIONS
 								.getNonTerminalValue()));
 
-		putGrammarMapElem(2, derivationAux);
+		derivationAux.setDerivationNumber(2);
+		grammarMap.put(2, derivationAux);
 	}
-
-	private void putGrammarMapElem(int key, Derivation derivation) {
-		derivation.setDerivationNumber(key);
-		grammarMap.put(key, derivation);
-		derivation.clearDerivationList();
-	}
-
+	
 }
