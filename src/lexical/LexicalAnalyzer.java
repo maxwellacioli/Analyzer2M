@@ -14,14 +14,16 @@ public class LexicalAnalyzer {
 	private List<String> linesList;
 	private int currentLine, currentColumn, tkBeginColumn = 0, tkBeginLine = 0;
 	private String line;
+	private String filePath;
 
 	private final char LINE_BREAK = '\n';
 
-	public LexicalAnalyzer() {
+	public LexicalAnalyzer(String filePath) {
 		linesList = new ArrayList<>();
+		this.filePath = filePath;
 	}
 
-	public void readFile(String filePath) {
+	public void readFile() {
 
 		BufferedReader br;
 

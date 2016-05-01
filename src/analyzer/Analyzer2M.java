@@ -17,19 +17,7 @@ public class Analyzer2M {
 
 	public static void main(String[] args) {
 
-		Token token;
-
-		lexicalAnalyzer = new LexicalAnalyzer();
-		syntaticAnalyzer = new SyntaticAnalyzer();
-
-		lexicalAnalyzer.readFile(filePath);
-
-		while (lexicalAnalyzer.hasMoreTokens()) {
-			token = lexicalAnalyzer.nextToken();
-			//TODO usar analisador sintatico
-			if (token != null) {
-				System.out.println(token);
-			}
-		}
+		lexicalAnalyzer = new LexicalAnalyzer(filePath);
+		syntaticAnalyzer = new SyntaticAnalyzer(lexicalAnalyzer);
 	}
 }
