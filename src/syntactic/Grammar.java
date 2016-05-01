@@ -9,6 +9,11 @@ public class Grammar {
 	public Grammar() {
 		grammarMap = new HashMap<Integer, Derivation>();
 
+		loadGrammar();
+	}
+	
+	private void loadGrammar() {
+		
 		// (1)FUNCTIONS MAJORF
 		derivationAux = new Derivation(1);
 		derivationAux.addDerivationSymbols(
@@ -425,11 +430,14 @@ public class Grammar {
 		// (75)NAME
 		derivationAux.addSymbol(new NonTerminal(NonTerminalName.NAME));
 		grammarPutDerivation(75, derivationAux);
-
 	}
 
 	private void grammarPutDerivation(int key, Derivation derivation) {
 		grammarMap.put(key, derivation);
 		derivation.clearDerivationList();
+	}
+	
+	public Derivation getGrammaDerivation(int key) {
+		return grammarMap.get(key);
 	}
 }

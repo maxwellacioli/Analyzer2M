@@ -1,8 +1,8 @@
 package syntactic;
 
 public enum NonTerminalName {
-	PROGRAM(0), 
-	MAJOR(1),
+	
+	PROGRAM(1), 
 	FUNCTIONS(2),
 	MAJORF(3),
 	PARAMS(4),
