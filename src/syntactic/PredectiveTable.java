@@ -2,13 +2,16 @@ package syntactic;
 
 import java.util.HashMap;
 
+import syntactic.grammar.NonTerminalName;
+import syntactic.grammar.TerminalCategory;
+
 public class PredectiveTable {
-	private HashMap predectiveTableMap;
-	private HashMap terminaisMap;
+	private HashMap<NonTerminalName, HashMap<TerminalCategory, Integer>> predectiveTableMap;
+	private HashMap<TerminalCategory, Integer> terminaisMap;
 
 	public PredectiveTable() {
-		terminaisMap = new HashMap<Integer, Integer>();
-		predectiveTableMap = new HashMap<Integer, HashMap<Integer, Integer>>();
+		terminaisMap = new HashMap<TerminalCategory, Integer>();
+		predectiveTableMap = new HashMap<NonTerminalName, HashMap<TerminalCategory, Integer>>();
 		
 		loadPredectiveTableMap();
 	}

@@ -1,4 +1,5 @@
-package syntactic;
+package syntactic.grammar;
+
 
 public class NonTerminal extends Symbol{
 	

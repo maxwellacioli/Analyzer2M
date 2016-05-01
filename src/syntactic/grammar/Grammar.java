@@ -1,24 +1,41 @@
-package syntactic;
+package syntactic.grammar;
 
 import java.util.HashMap;
 
 public class Grammar {
+	
+	private static Grammar grammarSingleton;
+	
+	private Grammar() { 
+		
+		grammarMap = new HashMap<Integer, Derivation>();
+		loadGrammar();
+		
+	}
+
+    public static Grammar getInstance() {
+        if (grammarSingleton == null ) {
+        	grammarSingleton = new Grammar();
+        }
+        return grammarSingleton;
+    }
+	
 	private HashMap<Integer, Derivation> grammarMap;
 	private Derivation derivationAux;
 
-	public Grammar() {
-		grammarMap = new HashMap<Integer, Derivation>();
-
-		loadGrammar();
+	public HashMap<Integer, Derivation> getGrammarMap() {
+		return grammarMap;
 	}
 	
 	private void loadGrammar() {
 		
+		//TODO AJEITAAAAAAAAAAAAAR!!!!		
+		
 		// (1)FUNCTIONS MAJORF
-		derivationAux = new Derivation(1);
+		derivationAux = new Derivation();
 		derivationAux.addDerivationSymbols(
 				new NonTerminal(NonTerminalName.FUNCTIONS),
-				new NonTerminal(NonTerminalName.MAJORF));
+				new NonTerminal(NonTerminalName.MAJORF));		
 		grammarPutDerivation(1, derivationAux);
 
 		// (2)‘id’ PARAMS RETURNTYPE ESCOPE FUNCTIONS
@@ -432,14 +449,11 @@ public class Grammar {
 		grammarPutDerivation(75, derivationAux);
 	}
 
-	private void grammarPutDerivation(int key, Derivation derivation) {
-		grammarMap.put(key, derivation);
-		if(derivation != null) {
-			derivation.clearDerivationList();
+	private void grammarPutDerivation(int key, Derivation derivation) {		
+		grammarMap.put(key, derivation);		
+		if(derivation != null) {			
+			derivationAux = new Derivation();
 		}
-	}
+	}	
 	
-	public Derivation getGrammaDerivation(int key) {
-		return grammarMap.get(key);
-	}
 }

@@ -2,6 +2,8 @@ package syntactic;
 
 import java.util.Stack;
 
+import syntactic.grammar.Grammar;
+import syntactic.grammar.Symbol;
 import lexical.LexicalAnalyzer;
 
 public class PredectiveAnalyzer {

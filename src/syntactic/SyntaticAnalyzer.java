@@ -1,5 +1,6 @@
 package syntactic;
 
+import syntactic.grammar.Grammar;
 import lexical.LexicalAnalyzer;
 import lexical.Token;
 
@@ -14,15 +15,20 @@ public class SyntaticAnalyzer {
 		
 		this.lexicalAnalyzer = lexicalAnalyzer;
 		token = new Token();
-		grammar = new Grammar();
+		grammar = Grammar.getInstance();
 		predectiveTable = new PredectiveTable();
 		predectiveAnalyzer = new PredectiveAnalyzer(grammar, predectiveTable);
 	}
 
 	public void analyze() {
 		
-		token = lexicalAnalyzer.nextToken();
-		System.out.println(token.getCategory());
+		
+//		for (Symbol symbol : grammar.getGrammarMap().get(75).getSymbolsList()) {
+//			System.out.println(symbol);
+//		}
+		
+//		token = lexicalAnalyzer.nextToken();
+//		System.out.println(token.getCategory());
 		
 	}
 

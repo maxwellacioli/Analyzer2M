@@ -1,4 +1,4 @@
-package syntactic;
+package syntactic.grammar;
 
 public class Symbol {
 	private Boolean isTerminal;

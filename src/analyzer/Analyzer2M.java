@@ -18,9 +18,9 @@ public class Analyzer2M {
 	public static void main(String[] args) {
 
 		lexicalAnalyzer = new LexicalAnalyzer(filePath);
-		syntaticAnalyzer = new SyntaticAnalyzer(lexicalAnalyzer);
-		
 		lexicalAnalyzer.readFile();
+		
+		syntaticAnalyzer = new SyntaticAnalyzer(lexicalAnalyzer);
 		syntaticAnalyzer.analyze();
 	}
 }
