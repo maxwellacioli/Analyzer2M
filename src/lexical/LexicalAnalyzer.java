@@ -5,39 +5,28 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Analyzer2M {
+import lexical.LexicalTable;
+import lexical.Token;
+import lexical.TokenCategory;
 
-	private List<String> linesList = new ArrayList<>();
+public class LexicalAnalyzer {
+
+	private List<String> linesList;
 	private int currentLine, currentColumn, tkBeginColumn = 0, tkBeginLine = 0;
 	private String line;
 
-	private static final char LINE_BREAK = '\n';
+	private final char LINE_BREAK = '\n';
 
-	public static void main(String[] args) {
-
-		Token token;
-
-		Analyzer2M analyzer2M = new Analyzer2M();
-
-		analyzer2M.readFile();
-
-		while (analyzer2M.hasMoreTokens()) {
-			token = analyzer2M.nextToken();
-			if (token != null) {
-				System.out.println(token);
-			}
-		}
-
+	public LexicalAnalyzer() {
+		linesList = new ArrayList<>();
 	}
 
-	private void readFile() {
+	public void readFile(String filePath) {
 
 		BufferedReader br;
 
 		try {
-			// br = new BufferedReader(new FileReader("files/fibonacci.2m"));
-			br = new BufferedReader(new FileReader("files/hello.2m"));
-			// br = new BufferedReader(new FileReader("files/shellsort.2m"));
+			br = new BufferedReader(new FileReader(filePath));
 
 			String brLine = br.readLine();
 
@@ -52,7 +41,7 @@ public class Analyzer2M {
 
 	}
 
-	private boolean hasMoreTokens() {
+	public boolean hasMoreTokens() {
 
 		if (!linesList.isEmpty()) {
 
