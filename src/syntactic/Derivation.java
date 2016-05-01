@@ -47,7 +47,7 @@ public class Derivation {
 
 	public void addDerivationSymbols(Symbol symb1, Symbol symb2, Symbol symb3,
 			Symbol symb4, Symbol symb5, Symbol symb6, Symbol symb7) {
-		addDerivationSymbols(symb1, symb2, symb3, symb4, symb5, symb6, symb7);
+		addDerivationSymbols(symb1, symb2, symb3, symb4, symb5, symb6);
 		derivation.add(symb7);
 	}
 
