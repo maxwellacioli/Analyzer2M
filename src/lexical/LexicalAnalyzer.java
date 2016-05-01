@@ -40,29 +40,42 @@ public class LexicalAnalyzer {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	public boolean hasMoreTokens() {
 
 		if (!linesList.isEmpty()) {
-
 			if (currentLine < linesList.size()) {
 				line = linesList.get(currentLine);
-
-				if (currentColumn < line.length()) {
+				line = line.replace('\t', ' ');
+				if (line.substring(currentColumn).matches("\\s*")) {
+					currentLine++;
+					currentColumn = 0;
+					while (currentLine < linesList.size()) {
+						line = linesList.get(currentLine);
+						if (line.matches("\\s*")) {
+							currentLine++;
+						} else {
+							return true;
+						}
+					}
+				} else if (currentColumn < line.length()) {
 					return true;
 				} else {
 					currentLine++;
 					currentColumn = 0;
-
-					if (currentLine < linesList.size()) {
+					while (currentLine < linesList.size()) {
 						line = linesList.get(currentLine);
-						return true;
+						if (line.matches("\\s*")) {
+							currentLine++;
+						} else {
+							return true;
+						}
 					}
 				}
 			}
 		}
+
 		return false;
 
 	}
@@ -77,24 +90,12 @@ public class LexicalAnalyzer {
 		tkBeginColumn = currentColumn;
 		tkBeginLine = currentLine;
 
-		// Ignora linhas em branco
-		if (line.isEmpty()) {
-			if (hasMoreTokens()) {
-				return nextToken();
-			} else {
-				return null;
-			}
-		}
-
 		currentChar = line.charAt(currentColumn);
 
 		// Ignora sequência de espaços vazios
 		while (currentChar == ' ' || currentChar == '\t') {
 			currentChar = nextChar();
 			tkBeginColumn++;
-			if (currentChar == LINE_BREAK) {
-				return null;
-			}
 		}
 
 		if (Character.toString(currentChar).matches("\\d")) {
@@ -229,7 +230,6 @@ public class LexicalAnalyzer {
 				currentColumn++;
 				break;
 			}
-
 		}
 
 		tkValue = tkValue.trim();

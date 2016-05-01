@@ -22,6 +22,12 @@ public class SyntaticAnalyzer {
 
 	public void analyze() {
 		
+		while(lexicalAnalyzer.hasMoreTokens()) {
+			token = lexicalAnalyzer.nextToken();
+			System.out.println(token.getValue());
+		}			
+		
+		
 		
 //		for (Symbol symbol : grammar.getGrammarMap().get(75).getSymbolsList()) {
 //			System.out.println(symbol);
