@@ -434,7 +434,9 @@ public class Grammar {
 
 	private void grammarPutDerivation(int key, Derivation derivation) {
 		grammarMap.put(key, derivation);
-		derivation.clearDerivationList();
+		if(derivation != null) {
+			derivation.clearDerivationList();
+		}
 	}
 	
 	public Derivation getGrammaDerivation(int key) {

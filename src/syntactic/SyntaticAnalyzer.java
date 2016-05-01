@@ -20,6 +20,11 @@ public class SyntaticAnalyzer {
 		predectiveTable = new PredectiveTable();
 		predectiveAnalyzer = new PredectiveAnalyzer(grammar, predectiveTable);
 		token = new Token();
+	}
+
+	public void analyze() {
+		token = lexicalAnalyzer.nextToken();
+		System.out.println(token.getCategory());
 		
 	}
 
