@@ -21,28 +21,28 @@ public class SyntaticAnalyzer {
 		grammar = Grammar.getInstance();
 		dictionary = DictionaryTokenTerminal.getInstance();
 		predictiveTable = new PredictiveTable();
-		predictiveAnalyzer = new PredictiveAnalyzer(grammar, predictiveTable, lexicalAnalyzer);
-		
-		//TEST - TO COMMENT
-		printTokens(lexicalAnalyzer);
-		lexicalAnalyzer.readFile();
-		//END TEST
+		predictiveAnalyzer = new PredictiveAnalyzer(grammar, predictiveTable,
+				lexicalAnalyzer);
+
+		// TEST - TO COMMENT
+		// printTokens(lexicalAnalyzer);
+
 	}
 
-	//TEST - TO COMMENT
+	// TEST - TO COMMENT
 	private void printTokens(LexicalAnalyzer lexicalAnalyzer) {
 		Token token;
-		while(lexicalAnalyzer.hasMoreTokens()) {
+		while (lexicalAnalyzer.hasMoreTokens()) {
 			token = lexicalAnalyzer.nextToken();
-			System.out.print(token.getCategory() + " ");
+			// System.out.println(token.toString());
 		}
 		System.out.println();
 		System.out.println();
+		lexicalAnalyzer.readFile();
 	}
-	//END TEST
-	
+
 	public void analyze() {
-		
+
 		predictiveAnalyzer.predictiveAnalyze();
 
 	}
