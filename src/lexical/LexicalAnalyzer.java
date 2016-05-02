@@ -46,8 +46,14 @@ public class LexicalAnalyzer {
 
 		if (!linesList.isEmpty()) {
 			if (currentLine < linesList.size()) {
+				// line = "";
+				// String[] lineAux = linesList.get(currentLine).split("\\s+");
+				// for (int i = 0; i < lineAux.length; i++) {
+				// line+=lineAux[i];
+				// }
 				line = linesList.get(currentLine);
 				line = line.replace('\t', ' ');
+
 				if (line.substring(currentColumn).matches("\\s*")) {
 					currentLine++;
 					currentColumn = 0;

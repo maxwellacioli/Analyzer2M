@@ -1,8 +1,12 @@
 package syntactic;
 
+import java.util.ArrayList;
+
+import syntactic.grammar.Derivation;
 import syntactic.grammar.DictionaryTokenTerminal;
 import syntactic.grammar.Grammar;
 import syntactic.grammar.NonTerminalName;
+import syntactic.grammar.OperatorsGrammar;
 import syntactic.grammar.Symbol;
 import syntactic.grammar.Terminal;
 import syntactic.grammar.TerminalCategory;
@@ -34,7 +38,7 @@ public class SyntaticAnalyzer {
 		Token token;
 		while (lexicalAnalyzer.hasMoreTokens()) {
 			token = lexicalAnalyzer.nextToken();
-			// System.out.println(token.toString());
+			System.out.println(token.toString());
 		}
 		System.out.println();
 		System.out.println();
@@ -44,6 +48,5 @@ public class SyntaticAnalyzer {
 	public void analyze() {
 
 		predictiveAnalyzer.predictiveAnalyze();
-
 	}
 }
