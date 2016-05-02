@@ -54,5 +54,4 @@ public enum NonTerminalName {
 	public int getNonTerminalValue() {
 		return nonTerminalValue;
 	}
-
 }

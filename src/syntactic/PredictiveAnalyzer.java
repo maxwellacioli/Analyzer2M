@@ -82,11 +82,29 @@ public class PredictiveAnalyzer {
 								derivationNumber);
 
 						if (derivation != null) {
+							System.out.print(topNonTerminal.getName() + " = ");
 							stack.pop();
+							// TO REMOVE
+							Symbol symb;
+							Terminal term;
+							NonTerminal nonTerm;
+
 							for (int i = derivation.getSymbolsList().size() - 1; i >= 0; i--) {
-								stack.push(derivation.getSymbolsList().get(i));
+
+								symb = derivation.getSymbolsList().get(i);
+								if (symb.isTerminal()) {
+									term = (Terminal) symb;
+									System.out.print(term.getCategory().toString().toLowerCase() + " ");
+								} else {
+									nonTerm = (NonTerminal) symb;
+									System.out.print(nonTerm.getName() + " ");
+								}
+
+								stack.push(symb);
 							}
+							System.out.println();
 						} else {
+							System.out.println(topNonTerminal.getName() + " = Epsilon");
 							stack.pop();
 						}
 
