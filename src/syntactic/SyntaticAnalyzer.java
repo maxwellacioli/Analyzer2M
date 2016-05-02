@@ -22,11 +22,21 @@ public class SyntaticAnalyzer {
 		dictionary = DictionaryTokenTerminal.getInstance();
 		predictiveTable = new PredictiveTable();
 		predictiveAnalyzer = new PredictiveAnalyzer(grammar, predictiveTable, lexicalAnalyzer);
-		
+		//printTokens(lexicalAnalyzer);
 	}
 
+	//TO REMOVE
+	private void printTokens(LexicalAnalyzer lexicalAnalyzer) {
+		Token token;
+		while(lexicalAnalyzer.hasMoreTokens()) {
+			token = lexicalAnalyzer.nextToken();
+			System.out.print(token.getCategory() + " ");
+		}
+		System.out.println();
+	}
+	
 	public void analyze() {
-
+		
 		predictiveAnalyzer.predictiveAnalyze();
 
 		// for (Symbol symbol :

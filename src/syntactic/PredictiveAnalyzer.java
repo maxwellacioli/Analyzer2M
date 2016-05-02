@@ -53,6 +53,7 @@ public class PredictiveAnalyzer {
 
 			terminal = dictionary.getTerminal(token);
 			stack.push(new NonTerminal(NonTerminalName.PROGRAM));
+			int counter = 1;
 
 			while (!stack.isEmpty()) {
 
@@ -82,7 +83,8 @@ public class PredictiveAnalyzer {
 								derivationNumber);
 
 						if (derivation != null) {
-							System.out.print(topNonTerminal.getName() + " = ");
+							System.out.print(topNonTerminal.getName() + "("
+									+ counter++ + ")" + " = ");
 							stack.pop();
 							// TO REMOVE
 							Symbol symb;
@@ -94,17 +96,36 @@ public class PredictiveAnalyzer {
 								symb = derivation.getSymbolsList().get(i);
 								if (symb.isTerminal()) {
 									term = (Terminal) symb;
-									System.out.print(term.getCategory().toString().toLowerCase() + " ");
+									// System.out.print(term.getCategory().toString().toLowerCase()
+									// + " ");
 								} else {
 									nonTerm = (NonTerminal) symb;
-									System.out.print(nonTerm.getName() + " ");
+									// System.out.print(nonTerm.getName() +
+									// " ");
 								}
 
 								stack.push(symb);
 							}
+
+							for (int i = 0; i < derivation.getSymbolsList()
+									.size(); i++) {
+								symb = derivation.getSymbolsList().get(i);
+								if (symb.isTerminal()) {
+									term = (Terminal) symb;
+									System.out.print(term.getCategory()
+											.toString().toLowerCase()
+											+ "(" + counter++ + ")" + " ");
+								} else {
+									nonTerm = (NonTerminal) symb;
+									System.out.print(nonTerm.getName() + "("
+											+ counter++ + ")" + " ");
+								}
+							}
 							System.out.println();
 						} else {
-							System.out.println(topNonTerminal.getName() + " = Epsilon");
+							System.out.println(topNonTerminal.getName() + "("
+									+ counter++ + ")" + " = Epsilon" + "("
+									+ counter++ + ")");
 							stack.pop();
 						}
 
