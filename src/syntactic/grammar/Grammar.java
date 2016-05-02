@@ -29,8 +29,6 @@ public class Grammar {
 	
 	private void loadGrammar() {
 		
-		//TODO AJEITAAAAAAAAAAAAAR!!!!		
-		
 		// (1)FUNCTIONS MAJORF
 		derivationAux = new Derivation();
 		derivationAux.addDerivationSymbols(

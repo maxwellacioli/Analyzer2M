@@ -17,7 +17,7 @@ public enum TerminalCategory {
 	PARAMEND(13), 
 	ARRAYBEGIN(14), 
 	ARRAYEND(15), 
-	COMMENT(16), 
+	COMMENT(16), //TO REMOVE
 	TERM(17), 
 	SEP1(18), 
 	SEP2(19),

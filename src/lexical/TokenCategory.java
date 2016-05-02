@@ -47,5 +47,4 @@ public enum TokenCategory {
 	OPATRIB, 
 	OPCONC, 
 	UNKNOWN
-	
 }

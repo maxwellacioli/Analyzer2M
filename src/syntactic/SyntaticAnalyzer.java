@@ -1,44 +1,41 @@
 package syntactic;
 
+import syntactic.grammar.DictionaryTokenTerminal;
 import syntactic.grammar.Grammar;
+import syntactic.grammar.NonTerminalName;
+import syntactic.grammar.Symbol;
+import syntactic.grammar.Terminal;
+import syntactic.grammar.TerminalCategory;
 import lexical.LexicalAnalyzer;
 import lexical.Token;
 
 public class SyntaticAnalyzer {
-	private Token token;
-	private LexicalAnalyzer lexicalAnalyzer;
+
 	private Grammar grammar;
-	private PredectiveAnalyzer predectiveAnalyzer;
-	private PredectiveTable predectiveTable;
-	
+	private DictionaryTokenTerminal dictionary;
+	private PredictiveAnalyzer predictiveAnalyzer;
+	private PredictiveTable predictiveTable;
+
 	public SyntaticAnalyzer(LexicalAnalyzer lexicalAnalyzer) {
-		
-		this.lexicalAnalyzer = lexicalAnalyzer;
-		token = new Token();
+
 		grammar = Grammar.getInstance();
-		predectiveTable = new PredectiveTable();
-		predectiveAnalyzer = new PredectiveAnalyzer(grammar, predectiveTable);
+		dictionary = DictionaryTokenTerminal.getInstance();
+		predictiveTable = new PredictiveTable();
+		predictiveAnalyzer = new PredictiveAnalyzer(grammar, predictiveTable, lexicalAnalyzer);
+		
 	}
 
 	public void analyze() {
-		
-		while(lexicalAnalyzer.hasMoreTokens()) {
-			token = lexicalAnalyzer.nextToken();
-			System.out.println(token.getValue());
-		}			
-		
-		
-		
-//		for (Symbol symbol : grammar.getGrammarMap().get(75).getSymbolsList()) {
-//			System.out.println(symbol);
-//		}
-		
-//		token = lexicalAnalyzer.nextToken();
-//		System.out.println(token.getCategory());
-		
+
+		predictiveAnalyzer.predictiveAnalyze();
+
+		// for (Symbol symbol :
+		// grammar.getGrammarMap().get(75).getSymbolsList()) {
+		// System.out.println(symbol);
+		// }
+
+		// token = lexicalAnalyzer.nextToken();
+		// System.out.println(token.getCategory());
+
 	}
-
-
-	
-	
 }
