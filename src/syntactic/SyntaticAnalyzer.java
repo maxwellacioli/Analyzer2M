@@ -22,10 +22,14 @@ public class SyntaticAnalyzer {
 		dictionary = DictionaryTokenTerminal.getInstance();
 		predictiveTable = new PredictiveTable();
 		predictiveAnalyzer = new PredictiveAnalyzer(grammar, predictiveTable, lexicalAnalyzer);
-		//printTokens(lexicalAnalyzer);
+		
+		//TEST - TO COMMENT
+		printTokens(lexicalAnalyzer);
+		lexicalAnalyzer.readFile();
+		//END TEST
 	}
 
-	//TO REMOVE
+	//TEST - TO COMMENT
 	private void printTokens(LexicalAnalyzer lexicalAnalyzer) {
 		Token token;
 		while(lexicalAnalyzer.hasMoreTokens()) {
@@ -33,19 +37,13 @@ public class SyntaticAnalyzer {
 			System.out.print(token.getCategory() + " ");
 		}
 		System.out.println();
+		System.out.println();
 	}
+	//END TEST
 	
 	public void analyze() {
 		
 		predictiveAnalyzer.predictiveAnalyze();
-
-		// for (Symbol symbol :
-		// grammar.getGrammarMap().get(75).getSymbolsList()) {
-		// System.out.println(symbol);
-		// }
-
-		// token = lexicalAnalyzer.nextToken();
-		// System.out.println(token.getCategory());
 
 	}
 }
