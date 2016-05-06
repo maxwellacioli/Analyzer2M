@@ -3,15 +3,44 @@ package syntactic.grammar;
 import java.util.ArrayList;
 import java.util.List;
 
+import lexical.TokenCategory;
+
 public class OperatorsGrammar {
 	private List<Derivation> operatorGrammarArray;
 	private Derivation operatorDerivation;
+	private List<TokenCategory> operatorsGrammarSymbols;
 	private static OperatorsGrammar operatorsGrammarSingleton;
 
 	private OperatorsGrammar() {
 		operatorGrammarArray = new ArrayList<Derivation>();
+		operatorsGrammarSymbols = new ArrayList<TokenCategory>();
 
 		loadOperatorGrammar();
+		loadOperatorsGrammarSymbols();
+	}
+
+	public List<TokenCategory> getOperatorsGrammarSymbols() {
+		return operatorsGrammarSymbols;
+	}
+
+	private void loadOperatorsGrammarSymbols() {
+		operatorsGrammarSymbols.add(TokenCategory.OPARITADIT);
+		operatorsGrammarSymbols.add(TokenCategory.OPARITMULT);
+		operatorsGrammarSymbols.add(TokenCategory.OPARITEXP);
+		operatorsGrammarSymbols.add(TokenCategory.OPNEGUN);
+		operatorsGrammarSymbols.add(TokenCategory.OPNEGLOGIC);
+		operatorsGrammarSymbols.add(TokenCategory.PARAMBEGIN);
+		operatorsGrammarSymbols.add(TokenCategory.PARAMEND);
+		operatorsGrammarSymbols.add(TokenCategory.OPLOGICOR);
+		operatorsGrammarSymbols.add(TokenCategory.OPLOGICAND);
+		operatorsGrammarSymbols.add(TokenCategory.OPREL1);
+		operatorsGrammarSymbols.add(TokenCategory.OPREL2);
+		operatorsGrammarSymbols.add(TokenCategory.CONSTNUMINT);
+		operatorsGrammarSymbols.add(TokenCategory.CONSTNUMDEC);
+		operatorsGrammarSymbols.add(TokenCategory.CONSTLOGIC);
+		operatorsGrammarSymbols.add(TokenCategory.CONSTCHAR);
+		operatorsGrammarSymbols.add(TokenCategory.CONSTCCHAR);
+		operatorsGrammarSymbols.add(TokenCategory.ID);
 	}
 
 	public static OperatorsGrammar getInstance() {
