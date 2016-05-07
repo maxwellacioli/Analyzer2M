@@ -447,6 +447,10 @@ public class Grammar {
 		// (75)NAME
 		derivationAux.addSymbol(new NonTerminal(NonTerminalName.NAME));
 		grammarPutDerivation(75, derivationAux);
+		
+		// (76)EXPRESSION
+		derivationAux.addSymbol(new NonTerminal(NonTerminalName.EXPRESSION));
+		grammarPutDerivation(76, derivationAux);
 	}
 
 	private void grammarPutDerivation(int key, Derivation derivation) {		

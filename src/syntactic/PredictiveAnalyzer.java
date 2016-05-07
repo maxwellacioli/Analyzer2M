@@ -47,7 +47,7 @@ public class PredictiveAnalyzer {
 		Integer derivationNumber;
 
 		if (lexicalAnalyzer.hasMoreTokens()) {
-			
+
 			token = lexicalAnalyzer.nextToken();
 
 			terminal = new Terminal(token.getCategory());
@@ -77,22 +77,33 @@ public class PredictiveAnalyzer {
 
 					if (topNonTerminal.getName() == NonTerminalName.EXPRESSION) {
 						if (precedenceAnalyzer.precedenceAnalysis(terminal)) {
-							
+
 							stack.pop();
 							topSymbol = stack.peek();
-							
+
 							terminal = precedenceAnalyzer.getEndOfSentence();
-							
-							//TODO Acabou! voltar para o início do while
+
+							// TODO Acabou! voltar para o início do while
 						} else {
 							System.out.println("EXPRESSION ERROR!");
 							break;
 						}
-						//TODO o top é um terminal, derivationnumber vai retornar null
 					} else {
-						derivationNumber = predictiveTable.getDerivationNumber(
-								topNonTerminal.getName(),
-								terminal.getCategory());
+
+						derivationNumber = null;
+						
+						if (topNonTerminal.getName() == NonTerminalName.VALUE) {
+							if(terminal.getCategory() != TokenCategory.ARRAYBEGIN) {
+								//TESTE - GAMBIARRA
+								derivationNumber = 76;
+							}
+							
+						} else {
+							derivationNumber = predictiveTable
+									.getDerivationNumber(
+											topNonTerminal.getName(),
+											terminal.getCategory());
+						}
 
 						if (derivationNumber != null) {
 							derivation = grammar.getGrammarMap().get(
