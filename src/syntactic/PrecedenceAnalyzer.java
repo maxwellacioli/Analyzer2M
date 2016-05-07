@@ -22,6 +22,10 @@ public class PrecedenceAnalyzer {
 		precedenceTable = PrecedenceTable.getInstance();
 	}
 
+	public Terminal getEndOfSentence() {
+		return endOfSentence;
+	}
+	
 	private void checkEndOfSentence(Terminal terminal) {
 		if (!OperatorsGrammar.getInstance().getOperatorsGrammarSymbols()
 				.contains(terminal.getCategory())) {

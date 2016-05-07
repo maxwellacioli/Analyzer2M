@@ -253,6 +253,7 @@ public class PredictiveTable {
 		
 		terminaisMap.put(TokenCategory.PRELSEIF, 66);
 		terminaisMap.put(TokenCategory.PRELSE, 67);
+		terminaisMap.put(TokenCategory.TERM, 67);
 		predectiveTableMap.put(NonTerminalName.ELSEIF, terminaisMap);
 		terminaisMap = new HashMap<TokenCategory, Integer>();
 		

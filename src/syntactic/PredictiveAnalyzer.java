@@ -37,6 +37,7 @@ public class PredictiveAnalyzer {
 		derivation = new Derivation();
 	}
 
+	@SuppressWarnings("unused")
 	public void predictiveAnalyze() {
 
 		Symbol topSymbol;
@@ -46,6 +47,7 @@ public class PredictiveAnalyzer {
 		Integer derivationNumber;
 
 		if (lexicalAnalyzer.hasMoreTokens()) {
+			
 			token = lexicalAnalyzer.nextToken();
 
 			terminal = new Terminal(token.getCategory());
@@ -75,19 +77,18 @@ public class PredictiveAnalyzer {
 
 					if (topNonTerminal.getName() == NonTerminalName.EXPRESSION) {
 						if (precedenceAnalyzer.precedenceAnalysis(terminal)) {
-							System.out.println("Expressão Aceita!");
 							
 							stack.pop();
 							topSymbol = stack.peek();
 							
-							//O hasmoretoken do inicio do método está pulando o token atual que seria
-							//paramend para escbegin
+							terminal = precedenceAnalyzer.getEndOfSentence();
 							
-							System.exit(1);
+							//TODO Acabou! voltar para o início do while
 						} else {
 							System.out.println("EXPRESSION ERROR!");
 							break;
 						}
+						//TODO o top é um terminal, derivationnumber vai retornar null
 					} else {
 						derivationNumber = predictiveTable.getDerivationNumber(
 								topNonTerminal.getName(),

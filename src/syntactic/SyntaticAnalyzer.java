@@ -24,12 +24,12 @@ public class SyntaticAnalyzer {
 		predictiveAnalyzer = new PredictiveAnalyzer(grammar, predictiveTable,
 				lexicalAnalyzer);
 
-		// TEST - TO COMMENT
+		// TEST
 		// printTokens(lexicalAnalyzer);
 
 	}
 
-	// TEST - TO COMMENT
+	// TEST
 	private void printTokens(LexicalAnalyzer lexicalAnalyzer) {
 		Token token;
 		while (lexicalAnalyzer.hasMoreTokens()) {
