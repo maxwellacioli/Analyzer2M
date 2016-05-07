@@ -54,7 +54,7 @@ public enum TokenCategory {
 		this.value = value;
 	}
 	
-	public int getValue() {
+	public int getCategoryValue() {
 		return value;
 	}
 }

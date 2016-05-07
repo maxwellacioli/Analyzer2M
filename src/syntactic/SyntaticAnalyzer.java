@@ -3,27 +3,23 @@ package syntactic;
 import java.util.ArrayList;
 
 import syntactic.grammar.Derivation;
-import syntactic.grammar.DictionaryTokenTerminal;
 import syntactic.grammar.Grammar;
 import syntactic.grammar.NonTerminalName;
 import syntactic.grammar.OperatorsGrammar;
 import syntactic.grammar.Symbol;
 import syntactic.grammar.Terminal;
-import syntactic.grammar.TerminalCategory;
 import lexical.LexicalAnalyzer;
 import lexical.Token;
 
 public class SyntaticAnalyzer {
 
 	private Grammar grammar;
-	private DictionaryTokenTerminal dictionary;
 	private PredictiveAnalyzer predictiveAnalyzer;
 	private PredictiveTable predictiveTable;
 
 	public SyntaticAnalyzer(LexicalAnalyzer lexicalAnalyzer) {
 
 		grammar = Grammar.getInstance();
-		dictionary = DictionaryTokenTerminal.getInstance();
 		predictiveTable = new PredictiveTable();
 		predictiveAnalyzer = new PredictiveAnalyzer(grammar, predictiveTable,
 				lexicalAnalyzer);

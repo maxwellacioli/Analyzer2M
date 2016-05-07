@@ -1,4 +1,7 @@
 major () empty [
 	printout ("Hello World")#	
 	
+	if(a > b)[
+	
+	]#
 ]#																		

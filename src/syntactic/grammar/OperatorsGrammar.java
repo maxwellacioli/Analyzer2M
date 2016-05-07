@@ -58,7 +58,7 @@ public class OperatorsGrammar {
 		operatorDerivation = new Derivation();
 		operatorDerivation
 				.addSymbol(new NonTerminal(NonTerminalName.EXPRESSION));
-		operatorDerivation.addSymbol(new Terminal(TerminalCategory.OPLOGICOR));
+		operatorDerivation.addSymbol(new Terminal(TokenCategory.OPLOGICOR));
 		operatorDerivation
 				.addSymbol(new NonTerminal(NonTerminalName.EXPRESSION));
 		operatorGrammarArray.add(operatorDerivation);
@@ -66,7 +66,7 @@ public class OperatorsGrammar {
 		operatorDerivation = new Derivation();
 		operatorDerivation
 				.addSymbol(new NonTerminal(NonTerminalName.EXPRESSION));
-		operatorDerivation.addSymbol(new Terminal(TerminalCategory.OPLOGICAND));
+		operatorDerivation.addSymbol(new Terminal(TokenCategory.OPLOGICAND));
 		operatorDerivation
 				.addSymbol(new NonTerminal(NonTerminalName.EXPRESSION));
 		operatorGrammarArray.add(operatorDerivation);
@@ -74,7 +74,7 @@ public class OperatorsGrammar {
 		operatorDerivation = new Derivation();
 		operatorDerivation
 				.addSymbol(new NonTerminal(NonTerminalName.EXPRESSION));
-		operatorDerivation.addSymbol(new Terminal(TerminalCategory.OPREL2));
+		operatorDerivation.addSymbol(new Terminal(TokenCategory.OPREL2));
 		operatorDerivation
 				.addSymbol(new NonTerminal(NonTerminalName.EXPRESSION));
 		operatorGrammarArray.add(operatorDerivation);
@@ -82,7 +82,7 @@ public class OperatorsGrammar {
 		operatorDerivation = new Derivation();
 		operatorDerivation
 				.addSymbol(new NonTerminal(NonTerminalName.EXPRESSION));
-		operatorDerivation.addSymbol(new Terminal(TerminalCategory.OPREL1));
+		operatorDerivation.addSymbol(new Terminal(TokenCategory.OPREL1));
 		operatorDerivation
 				.addSymbol(new NonTerminal(NonTerminalName.EXPRESSION));
 		operatorGrammarArray.add(operatorDerivation);
@@ -90,7 +90,7 @@ public class OperatorsGrammar {
 		operatorDerivation = new Derivation();
 		operatorDerivation
 				.addSymbol(new NonTerminal(NonTerminalName.EXPRESSION));
-		operatorDerivation.addSymbol(new Terminal(TerminalCategory.OPARITADIT));
+		operatorDerivation.addSymbol(new Terminal(TokenCategory.OPARITADIT));
 		operatorDerivation
 				.addSymbol(new NonTerminal(NonTerminalName.EXPRESSION));
 		operatorGrammarArray.add(operatorDerivation);
@@ -98,19 +98,19 @@ public class OperatorsGrammar {
 		operatorDerivation = new Derivation();
 		operatorDerivation
 				.addSymbol(new NonTerminal(NonTerminalName.EXPRESSION));
-		operatorDerivation.addSymbol(new Terminal(TerminalCategory.OPARITMULT));
+		operatorDerivation.addSymbol(new Terminal(TokenCategory.OPARITMULT));
 		operatorDerivation
 				.addSymbol(new NonTerminal(NonTerminalName.EXPRESSION));
 		operatorGrammarArray.add(operatorDerivation);
 
 		operatorDerivation = new Derivation();
-		operatorDerivation.addSymbol(new Terminal(TerminalCategory.OPNEGUN));
+		operatorDerivation.addSymbol(new Terminal(TokenCategory.OPNEGUN));
 		operatorDerivation
 				.addSymbol(new NonTerminal(NonTerminalName.EXPRESSION));
 		operatorGrammarArray.add(operatorDerivation);
 
 		operatorDerivation = new Derivation();
-		operatorDerivation.addSymbol(new Terminal(TerminalCategory.OPNEGLOGIC));
+		operatorDerivation.addSymbol(new Terminal(TokenCategory.OPNEGLOGIC));
 		operatorDerivation
 				.addSymbol(new NonTerminal(NonTerminalName.EXPRESSION));
 		operatorGrammarArray.add(operatorDerivation);
@@ -118,16 +118,16 @@ public class OperatorsGrammar {
 		operatorDerivation = new Derivation();
 		operatorDerivation
 				.addSymbol(new NonTerminal(NonTerminalName.EXPRESSION));
-		operatorDerivation.addSymbol(new Terminal(TerminalCategory.OPARITEXP));
+		operatorDerivation.addSymbol(new Terminal(TokenCategory.OPARITEXP));
 		operatorDerivation
 				.addSymbol(new NonTerminal(NonTerminalName.EXPRESSION));
 		operatorGrammarArray.add(operatorDerivation);
 
 		operatorDerivation = new Derivation();
-		operatorDerivation.addSymbol(new Terminal(TerminalCategory.PARAMBEGIN));
+		operatorDerivation.addSymbol(new Terminal(TokenCategory.PARAMBEGIN));
 		operatorDerivation
 				.addSymbol(new NonTerminal(NonTerminalName.EXPRESSION));
-		operatorDerivation.addSymbol(new Terminal(TerminalCategory.PARAMEND));
+		operatorDerivation.addSymbol(new Terminal(TokenCategory.PARAMEND));
 		operatorGrammarArray.add(operatorDerivation);
 
 		operatorDerivation = new Derivation();

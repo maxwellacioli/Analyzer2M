@@ -1,16 +1,21 @@
 package syntactic.grammar;
 
+import lexical.Token;
+import lexical.TokenCategory;
+
 public class Terminal extends Symbol {
 
-	TerminalCategory category;
+	private TokenCategory category;
 
-	public Terminal(TerminalCategory category) {
+	// private Token token;
 
-		super(true, category.getTerminalValue());
+	public Terminal(TokenCategory category) {
+
+		super(true, category.getCategoryValue());
 		this.category = category;
 	}
-	
-	public TerminalCategory getCategory() {
+
+	public TokenCategory getCategory() {
 		return category;
 	}
 }
