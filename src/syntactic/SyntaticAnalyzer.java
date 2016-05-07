@@ -18,7 +18,7 @@ public class SyntaticAnalyzer {
 				lexicalAnalyzer);
 
 		// TEST
-		// printTokens(lexicalAnalyzer);
+		 printTokens(lexicalAnalyzer);
 
 	}
 
@@ -36,7 +36,7 @@ public class SyntaticAnalyzer {
 
 	public void analyze() {
 
-		predictiveAnalyzer.predictiveAnalyze();
+//		predictiveAnalyzer.predictiveAnalyze();
 	}
 
 	public static void printError(Token token) {

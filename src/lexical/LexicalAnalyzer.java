@@ -46,11 +46,7 @@ public class LexicalAnalyzer {
 
 		if (!linesList.isEmpty()) {
 			if (currentLine < linesList.size()) {
-				// line = "";
-				// String[] lineAux = linesList.get(currentLine).split("\\s+");
-				// for (int i = 0; i < lineAux.length; i++) {
-				// line+=lineAux[i];
-				// }
+
 				line = linesList.get(currentLine);
 				line = line.replace('\t', ' ');
 
@@ -119,6 +115,18 @@ public class LexicalAnalyzer {
 					currentChar = nextChar();
 				}
 			}
+
+			if (currentChar != ' ') {
+				while (!LexicalTable.symbolList.contains(currentChar)) {
+					tkValue += currentChar;
+
+					// Vai para o proximo
+					currentChar = nextChar();
+					if (currentChar == LINE_BREAK) {
+						break;
+					}
+				}
+			}
 		} else {
 
 			// Enquanto nao for encontrado um simbolo especial, os
@@ -133,7 +141,6 @@ public class LexicalAnalyzer {
 				if (currentChar == LINE_BREAK) {
 					break;
 				}
-
 			}
 		}
 
@@ -326,7 +333,7 @@ public class LexicalAnalyzer {
 		if (tkValue.matches("(\\d)+\\.(\\d)+")) {
 			return true;
 		} else if (tkValue.matches("(\\d)+\\.")) {
-			System.out.println("Constante decimal em formato errado.");
+			printError("constante decimal em formato errado.", tkValue);
 		}
 		return false;
 	}
@@ -342,8 +349,7 @@ public class LexicalAnalyzer {
 		if (tkValue.startsWith("\"") && tkValue.endsWith("\"")) {
 			return true;
 		} else if (tkValue.startsWith("\"")) {
-			System.out
-					.println("Cadeia de caracteres não fechada corretamente com '\"'.");
+			printError("cadeia de caracteres não fechada corretamente com '\"'.", tkValue);
 		}
 		return false;
 	}
@@ -352,7 +358,7 @@ public class LexicalAnalyzer {
 		if (tkValue.matches("'(.?)'")) {
 			return true;
 		} else if (tkValue.startsWith("'")) {
-			System.out.println("Caracter não fechado corretamente com '.");
+			printError("caracter não fechado corretamente com '.", tkValue);
 		}
 		return false;
 	}
@@ -363,7 +369,7 @@ public class LexicalAnalyzer {
 			if (tkValue.length() < 16) {
 				return true;
 			} else {
-				System.out.println("Identificador muito longo.");
+				printError("identificador muito longo.", tkValue);
 			}
 
 			// Caso em que o identificador não começa com o caractere esperado.
@@ -373,16 +379,21 @@ public class LexicalAnalyzer {
 			// char que
 			// não foi propriamente fechado, ou uma constante decimal em formato
 			// errado.
-		} else if (tkValue.matches("[^_a-zA-Z0-9\"'].*")) {
-			System.out.println("Identificador não iniciado com letra ou '_'.");
+		} else if (tkValue.matches("[^_a-zA-Z\"'].*")) {
+			printError("identificador não iniciado com letra ou '_'.", tkValue);
 
 			// Caso em que o identificador começa com o caracter esperado, mas
 			// contém algum caracter inválido,
 		} else if (tkValue.matches("[_a-zA-Z].*")) {
-			System.out.println("Identificador contém caracter inválido.");
-
+			printError("identificador contém caracter inválido.", tkValue);
+			
 		}
 		return false;
 	}
 
+	private void printError(String string, String token) {
+		System.err.println("Erro na <linha, coluna> " + "= <" + currentLine
+				+ "," + currentColumn + ">. " + "'" + token + "'"+ " " + string);
+		System.exit(1);
+	}
 }

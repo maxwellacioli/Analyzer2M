@@ -1,5 +1,6 @@
 major () empty [
-	printout ("Hello World")#	
+	int casa#
 	
-	a = ,
+	printout ("Hello World)#	
+	
 ]#																		
