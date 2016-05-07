@@ -2,7 +2,6 @@ package analyzer;
 
 
 import lexical.LexicalAnalyzer;
-import lexical.Token;
 import syntactic.SyntaticAnalyzer;
 
 public class Analyzer2M {

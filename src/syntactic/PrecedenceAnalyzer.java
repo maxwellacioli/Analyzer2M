@@ -2,6 +2,7 @@ package syntactic;
 
 import java.util.Stack;
 
+import analyzer.Analyzer2M;
 import syntactic.grammar.OperatorsGrammar;
 import syntactic.grammar.Terminal;
 import lexical.LexicalAnalyzer;
@@ -15,17 +16,19 @@ public class PrecedenceAnalyzer {
 	private PrecedenceTable precedenceTable;
 	private int paramCount = 0;
 	private int tableValue;
+	private Token currentToken;
 
 	public PrecedenceAnalyzer(LexicalAnalyzer lexicalAnalyzer) {
 		this.lexicalAnalyzer = lexicalAnalyzer;
 		operatorsStack = new Stack<Terminal>();
 		precedenceTable = PrecedenceTable.getInstance();
+		currentToken = new Token();
 	}
 
 	public Terminal getEndOfSentence() {
 		return endOfSentence;
 	}
-	
+
 	private void checkEndOfSentence(Terminal terminal) {
 		if (!OperatorsGrammar.getInstance().getOperatorsGrammarSymbols()
 				.contains(terminal.getCategory())) {
@@ -86,8 +89,8 @@ public class PrecedenceAnalyzer {
 					operatorsStack.push(terminal);
 
 					if (lexicalAnalyzer.hasMoreTokens()) {
-						terminal = new Terminal(lexicalAnalyzer.nextToken()
-								.getCategory());
+						currentToken = lexicalAnalyzer.nextToken();
+						terminal = new Terminal(currentToken.getCategory());
 					}
 					checkEndOfSentence(terminal);
 
@@ -96,8 +99,7 @@ public class PrecedenceAnalyzer {
 					operatorsStack.pop();
 
 				} else { // Ação ERRO
-					System.out.println("Erro na linha no token "
-							+ terminal.getCategory() + "!");
+					SyntaticAnalyzer.printError(currentToken);
 					System.exit(1);
 				}
 			}

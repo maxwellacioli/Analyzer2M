@@ -8,6 +8,7 @@ import syntactic.grammar.Derivation;
 import syntactic.grammar.Grammar;
 import syntactic.grammar.NonTerminal;
 import syntactic.grammar.NonTerminalName;
+import syntactic.grammar.OperatorsGrammar;
 import syntactic.grammar.Symbol;
 import syntactic.grammar.Terminal;
 import lexical.LexicalAnalyzer;
@@ -68,7 +69,8 @@ public class PredictiveAnalyzer {
 						}
 
 					} else {
-						System.out.println("ERROR!");
+						SyntaticAnalyzer.printError(token);
+						System.exit(1);
 					}
 
 				} else {
@@ -76,28 +78,36 @@ public class PredictiveAnalyzer {
 					topNonTerminal = (NonTerminal) topSymbol;
 
 					if (topNonTerminal.getName() == NonTerminalName.EXPRESSION) {
-						if (precedenceAnalyzer.precedenceAnalysis(terminal)) {
+						if (!OperatorsGrammar.getInstance()
+								.getOperatorsGrammarSymbols()
+								.contains(terminal.getCategory())) {
+							SyntaticAnalyzer.printError(token);
+							System.exit(1);
 
-							stack.pop();
-							topSymbol = stack.peek();
-
-							terminal = precedenceAnalyzer.getEndOfSentence();
-
-							// TODO Acabou! voltar para o início do while
 						} else {
-							System.out.println("EXPRESSION ERROR!");
-							break;
+							if (precedenceAnalyzer.precedenceAnalysis(terminal)) {
+
+								stack.pop();
+								topSymbol = stack.peek();
+
+								terminal = precedenceAnalyzer
+										.getEndOfSentence();
+
+							} else {
+								System.out.println("EXPRESSION ERROR!");
+								break;
+							}
 						}
 					} else {
 
 						derivationNumber = null;
-						
+
 						if (topNonTerminal.getName() == NonTerminalName.VALUE) {
-							if(terminal.getCategory() != TokenCategory.ARRAYBEGIN) {
-								//TESTE - GAMBIARRA
+							if (terminal.getCategory() != TokenCategory.ARRAYBEGIN) {
+								// TESTE - GAMBIARRA
 								derivationNumber = 76;
 							}
-							
+
 						} else {
 							derivationNumber = predictiveTable
 									.getDerivationNumber(
@@ -157,7 +167,8 @@ public class PredictiveAnalyzer {
 							}
 
 						} else {
-							System.out.println("ERROR");
+							SyntaticAnalyzer.printError(token);
+							System.exit(1);
 						}
 					}
 				}

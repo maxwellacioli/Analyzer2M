@@ -1,13 +1,6 @@
 package syntactic;
 
-import java.util.ArrayList;
-
-import syntactic.grammar.Derivation;
 import syntactic.grammar.Grammar;
-import syntactic.grammar.NonTerminalName;
-import syntactic.grammar.OperatorsGrammar;
-import syntactic.grammar.Symbol;
-import syntactic.grammar.Terminal;
 import lexical.LexicalAnalyzer;
 import lexical.Token;
 
@@ -44,5 +37,11 @@ public class SyntaticAnalyzer {
 	public void analyze() {
 
 		predictiveAnalyzer.predictiveAnalyze();
+	}
+
+	public static void printError(Token token) {
+		System.out.println("Erro no token " + token.getCategory() + "("
+				+ token.getValue() + ")," + " na linha " + token.getLine()
+				+ " e coluna " + token.getColumn() + ".");
 	}
 }

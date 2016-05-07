@@ -1,13 +1,10 @@
 package syntactic.grammar;
 
-import lexical.Token;
 import lexical.TokenCategory;
 
 public class Terminal extends Symbol {
 
 	private TokenCategory category;
-
-	// private Token token;
 
 	public Terminal(TokenCategory category) {
 
