@@ -18,7 +18,7 @@ public class SyntaticAnalyzer {
 				lexicalAnalyzer);
 
 		// TEST
-		 printTokens(lexicalAnalyzer);
+		// printTokens(lexicalAnalyzer);
 
 	}
 
@@ -36,11 +36,11 @@ public class SyntaticAnalyzer {
 
 	public void analyze() {
 
-//		predictiveAnalyzer.predictiveAnalyze();
+		predictiveAnalyzer.predictiveAnalyze();
 	}
 
 	public static void printError(Token token) {
-		System.out.println("Erro no token " + token.getCategory() + "("
+		System.err.println("Erro no token " + token.getCategory() + "("
 				+ token.getValue() + ")," + " na linha " + token.getLine()
 				+ " e coluna " + token.getColumn() + ".");
 	}

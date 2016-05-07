@@ -1,6 +1,10 @@
 major () empty [
-	int casa#
+	int var#
+
+	var = 1#
+
+	printout ("Hello World")#	
+
 	
-	printout ("Hello World)#	
-	
-]#																		
+]#				
+												

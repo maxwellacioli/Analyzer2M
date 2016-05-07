@@ -7,7 +7,7 @@ shell_sort( int array{10} ) int { }[
 	int size#
 	int value#
 
-	size = arraySize(array)#
+	
 	iterator (h = 1 ; h < size ; h = h * 3 + 1) [
 	
 	]#

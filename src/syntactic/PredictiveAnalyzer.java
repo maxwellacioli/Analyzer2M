@@ -104,8 +104,7 @@ public class PredictiveAnalyzer {
 
 						if (topNonTerminal.getName() == NonTerminalName.VALUE) {
 							if (terminal.getCategory() != TokenCategory.ARRAYBEGIN) {
-								// TESTE - GAMBIARRA
-								derivationNumber = 76;
+								derivationNumber = Grammar.EXPRESSION;
 							}
 
 						} else {

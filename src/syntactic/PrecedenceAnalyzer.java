@@ -1,9 +1,14 @@
 package syntactic;
 
+import java.util.ArrayList;
 import java.util.Stack;
 
 import analyzer.Analyzer2M;
+import syntactic.grammar.Derivation;
+import syntactic.grammar.NonTerminal;
+import syntactic.grammar.NonTerminalName;
 import syntactic.grammar.OperatorsGrammar;
+import syntactic.grammar.Symbol;
 import syntactic.grammar.Terminal;
 import lexical.LexicalAnalyzer;
 import lexical.Token;
@@ -17,6 +22,7 @@ public class PrecedenceAnalyzer {
 	private int paramCount = 0;
 	private int tableValue;
 	private Token currentToken;
+	private int count = 1;
 
 	public PrecedenceAnalyzer(LexicalAnalyzer lexicalAnalyzer) {
 		this.lexicalAnalyzer = lexicalAnalyzer;
@@ -51,11 +57,13 @@ public class PrecedenceAnalyzer {
 
 	public boolean precedenceAnalysis(Terminal terminal) {
 		int tableAux;
+		endOfSentence = null;
 
+		System.out.println();
 		while (true) {
 			// Se pv e eof no cabeçote > Aceita!
 			if (operatorsStack.isEmpty() && (endOfSentence != null)) {
-				System.out.println("ACEITA");
+				System.out.println();
 				return true;
 			} else {
 				if (operatorsStack.isEmpty() || (endOfSentence != null)) {
@@ -97,6 +105,26 @@ public class PrecedenceAnalyzer {
 				} else if (tableValue > 0) { // Ação Reduz
 
 					operatorsStack.pop();
+
+					ArrayList<Symbol> derivation = OperatorsGrammar
+							.getInstance()
+							.getOperatorDerivation(tableValue - 1)
+							.getSymbolsList();
+					Terminal term;
+					NonTerminal nonTerm;
+
+					System.out.print(NonTerminalName.EXPRESSION + " = ");
+
+					for (Symbol symbol : derivation) {
+						if (symbol.isTerminal()) {
+							term = (Terminal) symbol;
+							System.out.print(term.getCategory() + " ");
+						} else {
+							nonTerm = (NonTerminal) symbol;
+							System.out.print(nonTerm.getName() + " ");
+						}
+					}
+					System.out.println();
 
 				} else { // Ação ERRO
 					SyntaticAnalyzer.printError(currentToken);

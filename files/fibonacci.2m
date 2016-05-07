@@ -1,13 +1,13 @@
-
 fibonacci( int limit ) empty [
 	int count#
 	int fib1#
 	int fib2#
 	int fib3#
+	
 	fib1 = 1#
 	fib2 = 1#
 	
-	if 	limit == 0) [
+	if 	(limit == 0) [
 		printout ("0")#
 	]#
 	

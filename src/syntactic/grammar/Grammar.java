@@ -8,6 +8,8 @@ public class Grammar {
 	
 	private static Grammar grammarSingleton;
 	
+	public static final int EXPRESSION = 76;
+	
 	private Grammar() { 
 		
 		grammarMap = new HashMap<Integer, Derivation>();
@@ -422,7 +424,7 @@ public class Grammar {
 	    // ‘paramEnd’ ‘escBegin’ COMMANDS ‘escEnd’
 		derivationAux.addDerivationSymbols(
 				new Terminal(TokenCategory.PRITERATOR), 
-				new Terminal(TokenCategory.ESCBEGIN), 
+				new Terminal(TokenCategory.PARAMBEGIN), 
 				new NonTerminal(NonTerminalName.ATTRIBUTION), 
 				new Terminal(TokenCategory.SEP2), 
 				new NonTerminal(NonTerminalName.EXPRESSION), 
@@ -450,7 +452,7 @@ public class Grammar {
 		
 		// (76)EXPRESSION
 		derivationAux.addSymbol(new NonTerminal(NonTerminalName.EXPRESSION));
-		grammarPutDerivation(76, derivationAux);
+		grammarPutDerivation(EXPRESSION, derivationAux);
 	}
 
 	private void grammarPutDerivation(int key, Derivation derivation) {		

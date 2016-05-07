@@ -15,7 +15,7 @@ public class PredictiveTable {
 		loadPredectiveTableMap();
 	}
 	
-	public int getDerivationNumber(NonTerminalName nonTerminal, TokenCategory terminal) {
+	public Integer getDerivationNumber(NonTerminalName nonTerminal, TokenCategory terminal) {
 		return predectiveTableMap.get(nonTerminal).get(terminal);
 	}
 
