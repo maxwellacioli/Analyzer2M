@@ -58,6 +58,7 @@ public class PrecedenceAnalyzer {
 	public boolean precedenceAnalysis(Terminal terminal) {
 		int tableAux;
 		endOfSentence = null;
+		checkEndOfSentence(terminal);
 
 		System.out.println();
 		while (true) {
@@ -104,7 +105,14 @@ public class PrecedenceAnalyzer {
 
 				} else if (tableValue > 0) { // Ação Reduz
 
-					operatorsStack.pop();
+					//Se a produção for 10(9), sera necessario 2 ações pop para tirar o '(' e ')'
+					//referente a produção EXPRESSION = PARAMBEGIN EXPRESSION PARAMEND
+					if (tableValue != 10) {
+						operatorsStack.pop();
+					} else { 
+						operatorsStack.pop();
+						operatorsStack.pop();
+					}
 
 					ArrayList<Symbol> derivation = OperatorsGrammar
 							.getInstance()
