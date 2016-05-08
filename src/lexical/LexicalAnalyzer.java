@@ -99,7 +99,7 @@ public class LexicalAnalyzer {
 			currentChar = nextChar();
 			tkBeginColumn++;
 		}
-
+		
 		if (Character.toString(currentChar).matches("\\d")) {
 			tkValue += currentChar;
 			currentChar = nextChar();

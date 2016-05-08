@@ -1,7 +1,7 @@
 major () empty [
 	int var#
 
-	var = (a + b) * (c + d)#
+	var = a + b * a ^ b#
 
 	printout ("Hello World")#	
 
