@@ -12,7 +12,7 @@ shell_sort( int array{10} ) int { }[
 	
 	]#
 
-	iterator ( h = h/3 ; h < 1 ; ) [
+	iterator ( h = h/3 ; h < 1 ; x = 5) [
 		iterator (i = h ; i < size ; i = i + 1) [
 			value = array{i}#
 

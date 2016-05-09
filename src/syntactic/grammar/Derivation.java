@@ -3,13 +3,13 @@ package syntactic.grammar;
 import java.util.ArrayList;
 
 public class Derivation {
-	
+
 	private ArrayList<Symbol> symbolsList;
 
 	public ArrayList<Symbol> getSymbolsList() {
 		return symbolsList;
 	}
-	
+
 	public Derivation() {
 		symbolsList = new ArrayList<Symbol>();
 	}
@@ -25,7 +25,7 @@ public class Derivation {
 	public void addDerivationSymbols(Symbol symb1, Symbol symb2) {
 		addSymbol(symb1);
 		symbolsList.add(symb2);
-		
+
 	}
 
 	public void addDerivationSymbols(Symbol symb1, Symbol symb2, Symbol symb3) {
@@ -71,6 +71,16 @@ public class Derivation {
 		symbolsList.add(symb9);
 		symbolsList.add(symb10);
 		symbolsList.add(symb11);
+	}
+
+	public void addDerivationSymbols(Symbol symb1, Symbol symb2, Symbol symb3,
+			Symbol symb4, Symbol symb5, Symbol symb6, Symbol symb7,
+			Symbol symb8, Symbol symb9, Symbol symb10, Symbol symb11,
+			Symbol symb12, Symbol symb13) {
+		addDerivationSymbols(symb1, symb2, symb3, symb4, symb5, symb6, symb7,
+				symb8, symb9, symb10, symb11);
+		symbolsList.add(symb12);
+		symbolsList.add(symb13);
 	}
 
 	public boolean isEmpty() {

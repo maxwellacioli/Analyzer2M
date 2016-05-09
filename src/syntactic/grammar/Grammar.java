@@ -420,15 +420,17 @@ public class Grammar {
 				new Terminal(TokenCategory.PARAMEND));
 		grammarPutDerivation(71, derivationAux);
 		
-		//  (72)‘prIterator’ ‘paramBegin’ ATTRIBUTION ‘sep2’ EXPRESSION ‘sep2’ ATTRIBUTION 
+		//  (72)‘prIterator’ ‘paramBegin’ 'id' ATTRIBUTION ‘sep2’ EXPRESSION ‘sep2’ 'id' ATTRIBUTION 
 	    // ‘paramEnd’ ‘escBegin’ COMMANDS ‘escEnd’
 		derivationAux.addDerivationSymbols(
 				new Terminal(TokenCategory.PRITERATOR), 
-				new Terminal(TokenCategory.PARAMBEGIN), 
+				new Terminal(TokenCategory.PARAMBEGIN),
+				new Terminal(TokenCategory.ID),
 				new NonTerminal(NonTerminalName.ATTRIBUTION), 
 				new Terminal(TokenCategory.SEP2), 
 				new NonTerminal(NonTerminalName.EXPRESSION), 
-				new Terminal(TokenCategory.SEP2), 
+				new Terminal(TokenCategory.SEP2),
+				new Terminal(TokenCategory.ID),
 				new NonTerminal(NonTerminalName.ATTRIBUTION), 
 				new Terminal(TokenCategory.PARAMEND), 
 				new Terminal(TokenCategory.ESCBEGIN), 
