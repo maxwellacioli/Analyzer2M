@@ -25,7 +25,7 @@ public class PredictiveAnalyzer {
 	private Stack<Symbol> stack;
 	private Derivation derivation;
 
-	// TODO não passar referencia e sim chamar pela instancia singleton
+	// TODO
 	public PredictiveAnalyzer(Grammar grammar, PredictiveTable predictiveTable,
 			LexicalAnalyzer lexicalAnalyzer) {
 
@@ -50,7 +50,7 @@ public class PredictiveAnalyzer {
 
 			token = lexicalAnalyzer.nextToken();
 
-			terminal = new Terminal(token.getCategory());
+			terminal = new Terminal(token);
 			stack.push(new NonTerminal(NonTerminalName.PROGRAM));
 			int counter = 1;
 
@@ -64,7 +64,7 @@ public class PredictiveAnalyzer {
 						stack.pop();
 						if (lexicalAnalyzer.hasMoreTokens()) {
 							token = lexicalAnalyzer.nextToken();
-							terminal = new Terminal(token.getCategory());
+							terminal = new Terminal(token);
 						}
 
 					} else {
@@ -131,12 +131,8 @@ public class PredictiveAnalyzer {
 									symb = derivation.getSymbolsList().get(i);
 									if (symb.isTerminal()) {
 										term = (Terminal) symb;
-										// System.out.print(term.getCategory().toString().toLowerCase()
-										// + " ");
 									} else {
 										nonTerm = (NonTerminal) symb;
-										// System.out.print(nonTerm.getName() +
-										// " ");
 									}
 
 									stack.push(symb);
@@ -150,7 +146,7 @@ public class PredictiveAnalyzer {
 										System.out.print("'"
 												+ term.getCategory().toString()
 														.toLowerCase() + "'"
-												+ "(" + counter++ + ")" + " ");
+												+ " ");
 									} else {
 										nonTerm = (NonTerminal) symb;
 										System.out.print(nonTerm.getName()
