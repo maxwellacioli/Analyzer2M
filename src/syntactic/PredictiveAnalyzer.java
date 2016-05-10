@@ -38,7 +38,6 @@ public class PredictiveAnalyzer {
 		derivation = new Derivation();
 	}
 
-	@SuppressWarnings("unused")
 	public void predictiveAnalyze() {
 
 		Symbol topSymbol;
@@ -85,7 +84,7 @@ public class PredictiveAnalyzer {
 							System.exit(1);
 
 						} else {
-							if (precedenceAnalyzer.precedenceAnalysis(terminal)) {
+							if (precedenceAnalyzer.precedenceAnalysis(token)) {
 
 								stack.pop();
 								topSymbol = stack.peek();
@@ -148,8 +147,9 @@ public class PredictiveAnalyzer {
 									symb = derivation.getSymbolsList().get(i);
 									if (symb.isTerminal()) {
 										term = (Terminal) symb;
-										System.out.print(term.getCategory()
-												.toString().toLowerCase()
+										System.out.print("'"
+												+ term.getCategory().toString()
+														.toLowerCase() + "'"
 												+ "(" + counter++ + ")" + " ");
 									} else {
 										nonTerm = (NonTerminal) symb;
@@ -160,13 +160,13 @@ public class PredictiveAnalyzer {
 								System.out.println();
 							} else {
 								System.out.println(topNonTerminal.getName()
-										+ "(" + counter++ + ")" + " = Epsilon"
-										+ "(" + counter++ + ")");
+										+ "(" + counter++ + ")" + " = epsilon");
 								stack.pop();
 							}
 
 						} else {
-							SyntaticAnalyzer.printError(token);
+							SyntaticAnalyzer.printError(terminal
+									.getTerminalToken());
 							System.exit(1);
 						}
 					}

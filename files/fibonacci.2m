@@ -12,7 +12,7 @@ fibonacci( int limit ) empty [
 	]#
 	
 	while (count < limit) [
-		if (count <2) [
+		if (count < 2) [
 			printout ("1 ")#
 	] else [
 		fib3 = fib1 + fib2#

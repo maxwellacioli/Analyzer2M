@@ -1,10 +1,9 @@
 major () empty [
 	int var#
 
-	var = a + b * a ^ b#
+	var = 5.65#
 
 	printout ("Hello World")#	
-
 	
 ]#				
 												

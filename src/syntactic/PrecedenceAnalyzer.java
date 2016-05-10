@@ -3,8 +3,6 @@ package syntactic;
 import java.util.ArrayList;
 import java.util.Stack;
 
-import analyzer.Analyzer2M;
-import syntactic.grammar.Derivation;
 import syntactic.grammar.NonTerminal;
 import syntactic.grammar.NonTerminalName;
 import syntactic.grammar.OperatorsGrammar;
@@ -18,17 +16,15 @@ public class PrecedenceAnalyzer {
 	private LexicalAnalyzer lexicalAnalyzer;
 	private Stack<Terminal> operatorsStack;
 	private Terminal endOfSentence;
+	private Token currentToken;
 	private PrecedenceTable precedenceTable;
 	private int paramCount = 0;
 	private int tableValue;
-	private Token currentToken;
-	private int count = 1;
 
 	public PrecedenceAnalyzer(LexicalAnalyzer lexicalAnalyzer) {
 		this.lexicalAnalyzer = lexicalAnalyzer;
 		operatorsStack = new Stack<Terminal>();
 		precedenceTable = PrecedenceTable.getInstance();
-		currentToken = new Token();
 	}
 
 	public Terminal getEndOfSentence() {
@@ -55,9 +51,12 @@ public class PrecedenceAnalyzer {
 				.indexOf(terminal.getCategory());
 	}
 
-	public boolean precedenceAnalysis(Terminal terminal) {
+	public boolean precedenceAnalysis(Token token) {
 		int tableAux;
+		int count = 1;
 		endOfSentence = null;
+		Terminal terminal = new Terminal(token);
+
 		checkEndOfSentence(terminal);
 
 		System.out.println();
@@ -98,18 +97,19 @@ public class PrecedenceAnalyzer {
 					operatorsStack.push(terminal);
 
 					if (lexicalAnalyzer.hasMoreTokens()) {
-						currentToken = lexicalAnalyzer.nextToken();
-						terminal = new Terminal(currentToken.getCategory());
+						terminal = new Terminal(lexicalAnalyzer.nextToken());
 					}
 					checkEndOfSentence(terminal);
 
 				} else if (tableValue > 0) { // Ação Reduz
 
-					//Se a produção for 10(9), sera necessario 2 ações pop para tirar o '(' e ')'
-					//referente a produção EXPRESSION = PARAMBEGIN EXPRESSION PARAMEND
+					// Se a produção for 10(9), sera necessario 2 ações pop para
+					// tirar o '(' e ')'
+					// referente a produção EXPRESSION = PARAMBEGIN EXPRESSION
+					// PARAMEND
 					if (tableValue != 10) {
-						operatorsStack.pop();
-					} else { 
+						currentToken = operatorsStack.pop().getTerminalToken();
+					} else {
 						operatorsStack.pop();
 						operatorsStack.pop();
 					}
@@ -121,12 +121,20 @@ public class PrecedenceAnalyzer {
 					Terminal term;
 					NonTerminal nonTerm;
 
-					System.out.print(NonTerminalName.EXPRESSION + " = ");
+					System.out.print(NonTerminalName.EXPRESSION + "(" + count++
+							+ ")" + " = ");
 
 					for (Symbol symbol : derivation) {
 						if (symbol.isTerminal()) {
 							term = (Terminal) symbol;
-							System.out.print(term.getCategory() + " ");
+							if (tableValue >= 11 && tableValue <= 16) {
+								System.out.print(term.getCategory() + "("
+										+ "\"" + currentToken.getValue() + "\""
+										+ ")" + " ");
+							} else {
+
+								System.out.print(term.getCategory() + " ");
+							}
 						} else {
 							nonTerm = (NonTerminal) symbol;
 							System.out.print(nonTerm.getName() + " ");
@@ -135,7 +143,7 @@ public class PrecedenceAnalyzer {
 					System.out.println();
 
 				} else { // Ação ERRO
-					SyntaticAnalyzer.printError(currentToken);
+					SyntaticAnalyzer.printError(terminal.getTerminalToken());
 					System.exit(1);
 				}
 			}
