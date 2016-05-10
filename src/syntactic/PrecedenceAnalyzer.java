@@ -14,24 +14,23 @@ import lexical.TokenCategory;
 
 public class PrecedenceAnalyzer {
 	private LexicalAnalyzer lexicalAnalyzer;
-	private Stack<Terminal> operatorsStack;
-	private Terminal endOfSentence;
+	private Stack<Token> operatorsStack;
+	private Token endOfSentence;
 	private Token currentToken;
 	private PrecedenceTable precedenceTable;
 	private int paramCount = 0;
-	private int tableValue;
 
 	public PrecedenceAnalyzer(LexicalAnalyzer lexicalAnalyzer) {
 		this.lexicalAnalyzer = lexicalAnalyzer;
-		operatorsStack = new Stack<Terminal>();
+		operatorsStack = new Stack<Token>();
 		precedenceTable = PrecedenceTable.getInstance();
 	}
 
-	public Terminal getEndOfSentence() {
+	public Token getEndOfSentence() {
 		return endOfSentence;
 	}
 
-	private void checkEndOfSentence(Terminal terminal) {
+	private void checkEndOfSentence(Token terminal) {
 		if (!OperatorsGrammar.getInstance().getOperatorsGrammarSymbols()
 				.contains(terminal.getCategory())) {
 			endOfSentence = terminal;
@@ -46,18 +45,18 @@ public class PrecedenceAnalyzer {
 		}
 	}
 
-	private int getIndexOfTerminalSymbol(Terminal terminal) {
+	private int getIndexOfTerminalSymbol(Token terminal) {
 		return OperatorsGrammar.getInstance().getOperatorsGrammarSymbols()
 				.indexOf(terminal.getCategory());
 	}
 
 	public boolean precedenceAnalysis(Token token) {
+		int tableValue;
 		int tableAux;
 		int count = 1;
 		endOfSentence = null;
-		Terminal terminal = new Terminal(token);
 
-		checkEndOfSentence(terminal);
+		checkEndOfSentence(token);
 
 		System.out.println();
 		while (true) {
@@ -74,7 +73,7 @@ public class PrecedenceAnalyzer {
 					if (operatorsStack.isEmpty()) {
 						tableValue = precedenceTable.getPrecedenceTableList()
 								.get(tableAux)
-								.get(getIndexOfTerminalSymbol(terminal));
+								.get(getIndexOfTerminalSymbol(token));
 
 					} // Se terminal no top da pilha e eof no cabeçote
 					else {
@@ -87,19 +86,19 @@ public class PrecedenceAnalyzer {
 					tableValue = precedenceTable
 							.getPrecedenceTableList()
 							.get(getIndexOfTerminalSymbol(operatorsStack.peek()))
-							.get(getIndexOfTerminalSymbol(terminal));
+							.get(getIndexOfTerminalSymbol(token));
 				}
 
 				// Verificação da ação
 
 				if (tableValue == 0) { // Ação ELT
 
-					operatorsStack.push(terminal);
+					operatorsStack.push(token);
 
 					if (lexicalAnalyzer.hasMoreTokens()) {
-						terminal = new Terminal(lexicalAnalyzer.nextToken());
+						token = lexicalAnalyzer.nextToken();
 					}
-					checkEndOfSentence(terminal);
+					checkEndOfSentence(token);
 
 				} else if (tableValue > 0) { // Ação Reduz
 
@@ -108,7 +107,7 @@ public class PrecedenceAnalyzer {
 					// referente a produção EXPRESSION = PARAMBEGIN EXPRESSION
 					// PARAMEND
 					if (tableValue != 10) {
-						currentToken = operatorsStack.pop().getTerminalToken();
+						currentToken = operatorsStack.pop();
 					} else {
 						operatorsStack.pop();
 						operatorsStack.pop();
@@ -143,7 +142,7 @@ public class PrecedenceAnalyzer {
 					System.out.println();
 
 				} else { // Ação ERRO
-					SyntaticAnalyzer.printError(terminal.getTerminalToken());
+					SyntaticAnalyzer.printError(token);
 					System.exit(1);
 				}
 			}

@@ -89,8 +89,8 @@ public class PredictiveAnalyzer {
 								stack.pop();
 								topSymbol = stack.peek();
 
-								terminal = precedenceAnalyzer
-										.getEndOfSentence();
+								terminal = new Terminal(
+										precedenceAnalyzer.getEndOfSentence());
 
 							} else {
 								System.out.println("EXPRESSION ERROR!");
