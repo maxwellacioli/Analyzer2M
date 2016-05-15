@@ -52,7 +52,9 @@ public class PredictiveAnalyzer {
 
 			terminal = new Terminal(token);
 			stack.push(new NonTerminal(NonTerminalName.PROGRAM));
-			int counter = 1;
+			
+			int left_counter = 1;
+			int right_counter = 2;
 
 			while (!stack.isEmpty()) {
 
@@ -92,9 +94,6 @@ public class PredictiveAnalyzer {
 								terminal = new Terminal(
 										precedenceAnalyzer.getEndOfSentence());
 
-							} else {
-								System.out.println("EXPRESSION ERROR!");
-								break;
 							}
 						}
 					} else {
@@ -119,7 +118,7 @@ public class PredictiveAnalyzer {
 
 							if (derivation != null) {
 								System.out.print(topNonTerminal.getName() + "("
-										+ counter++ + ")" + " = ");
+										+ left_counter++ + ")" + " = ");
 								stack.pop();
 								// TO REMOVE
 								Symbol symb;
@@ -150,13 +149,15 @@ public class PredictiveAnalyzer {
 									} else {
 										nonTerm = (NonTerminal) symb;
 										System.out.print(nonTerm.getName()
-												+ "(" + counter++ + ")" + " ");
+												+ "(" +  right_counter++ +")"
+												+ " ");
 									}
 								}
 								System.out.println();
 							} else {
 								System.out.println(topNonTerminal.getName()
-										+ "(" + counter++ + ")" + " = epsilon");
+										+ "(" + left_counter++ + ")"
+										+ " = epsilon");
 								stack.pop();
 							}
 
