@@ -101,7 +101,7 @@ public class PrecedenceAnalyzer {
 
 				// Verificação da ação
 
-				if (tableValue == 0) { // Ação ELT
+				if (tableValue == PrecedenceTable.ELT) { // Ação ELT
 
 					operatorsStack.push(token);
 
@@ -110,25 +110,27 @@ public class PrecedenceAnalyzer {
 					}
 					checkEndOfSentence(token);
 
-				} else if (tableValue > 0) { // Ação Reduz
+				} else if (tableValue > PrecedenceTable.ELT) { // Ação Reduz
 
 					// Se a produção for 10(9), sera necessario 2 ações pop para
 					// tirar o '(' e ')'
 					// referente a produção EXPRESSION = PARAMBEGIN EXPRESSION
 					// PARAMEND
 
-					if (tableValue != 10 && tableValue != 17) {
+					if (tableValue != PrecedenceTable.R10
+							&& tableValue != PrecedenceTable.R17) {
 						currentToken = operatorsStack.pop();
 					} else {
-						if ((tableValue == 10)
+						if ((tableValue == PrecedenceTable.R10)
 								&& (operatorsStack.elementAt(
 										operatorsStack.size() - 3)
 										.getCategory().equals(TokenCategory.ID))) {
-							tableValue = 18;
+							tableValue = PrecedenceTable.R18;
 						}
 						operatorsStack.pop();
 						operatorsStack.pop();
-						if (tableValue == 17 || tableValue == 18) {
+						if (tableValue == PrecedenceTable.R17
+								|| tableValue == PrecedenceTable.R18) {
 							currentToken = operatorsStack.pop();
 						}
 					}
