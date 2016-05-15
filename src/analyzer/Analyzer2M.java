@@ -8,7 +8,7 @@ public class Analyzer2M {
 	private static LexicalAnalyzer lexicalAnalyzer;
 	private static SyntaticAnalyzer syntaticAnalyzer;
 
-	private static String filePath = "files/fibonacci.2m";
+	private static String filePath = "files/shellsort.2m";
 
 	public Analyzer2M() {
 

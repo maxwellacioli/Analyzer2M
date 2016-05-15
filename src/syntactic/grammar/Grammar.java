@@ -145,7 +145,7 @@ public class Grammar {
 		// (22)‘arrayBegin’ ‘constNumInt’ ‘arrayEnd’
 		derivationAux.addDerivationSymbols(
 				new Terminal(TokenCategory.ARRAYBEGIN),
-				new Terminal(TokenCategory.CONSTNUMINT),
+				new NonTerminal(NonTerminalName.EXPRESSION),
 				new Terminal(TokenCategory.ARRAYEND));
 		grammarPutDerivation(22, derivationAux);
 		
@@ -454,6 +454,7 @@ public class Grammar {
 		
 		// (76)EXPRESSION
 		derivationAux.addSymbol(new NonTerminal(NonTerminalName.EXPRESSION));
+		// derivationAux.addSymbol(new NonTerminal(NonTerminalName.NAMEFAT));
 		grammarPutDerivation(EXPRESSION, derivationAux);
 	}
 

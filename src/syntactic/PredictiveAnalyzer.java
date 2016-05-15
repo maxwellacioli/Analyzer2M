@@ -101,10 +101,10 @@ public class PredictiveAnalyzer {
 
 						derivationNumber = null;
 
-						if (topNonTerminal.getName() == NonTerminalName.VALUE) {
-							if (terminal.getCategory() != TokenCategory.ARRAYBEGIN) {
-								derivationNumber = Grammar.EXPRESSION;
-							}
+						if (topNonTerminal.getName() == NonTerminalName.VALUE
+								&& terminal.getCategory() != TokenCategory.ARRAYBEGIN) {
+
+							derivationNumber = Grammar.EXPRESSION;
 
 						} else {
 							derivationNumber = predictiveTable

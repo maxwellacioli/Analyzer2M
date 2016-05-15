@@ -19,6 +19,7 @@ public class PrecedenceAnalyzer {
 	private Token currentToken;
 	private PrecedenceTable precedenceTable;
 	private int paramCount = 0;
+	private int arrayCount = 0;
 
 	public PrecedenceAnalyzer(LexicalAnalyzer lexicalAnalyzer) {
 		this.lexicalAnalyzer = lexicalAnalyzer;
@@ -41,6 +42,14 @@ public class PrecedenceAnalyzer {
 				endOfSentence = terminal;
 			} else {
 				paramCount--;
+			}
+		} else if (terminal.getCategory().equals(TokenCategory.ARRAYBEGIN)) {
+			arrayCount++;
+		} else if (terminal.getCategory().equals(TokenCategory.ARRAYEND)) {
+			if (arrayCount == 0) {
+				endOfSentence = terminal;
+			} else {
+				arrayCount--;
 			}
 		}
 	}
@@ -106,11 +115,14 @@ public class PrecedenceAnalyzer {
 					// tirar o '(' e ')'
 					// referente a produção EXPRESSION = PARAMBEGIN EXPRESSION
 					// PARAMEND
-					if (tableValue != 10) {
+					if (tableValue != 10 && tableValue != 17) {
 						currentToken = operatorsStack.pop();
 					} else {
 						operatorsStack.pop();
 						operatorsStack.pop();
+						if (tableValue == 17) {
+							operatorsStack.pop();
+						}
 					}
 
 					ArrayList<Symbol> derivation = OperatorsGrammar

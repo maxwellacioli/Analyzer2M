@@ -1,9 +1,11 @@
 major () empty [
 	int var#
 
-	var = 5.65#
+	if(a{b} + b{c}) [
+	
+	]#
 
 	printout ("Hello World")#	
 	
 ]#				
-												
+							
