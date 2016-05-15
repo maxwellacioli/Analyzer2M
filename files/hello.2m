@@ -1,9 +1,4 @@
 major () empty [
-	int var#
-
-	if(a{b} + b{c}) [
-	
-	]#
 
 	printout ("Hello World")#	
 	

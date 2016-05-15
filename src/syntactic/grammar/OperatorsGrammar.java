@@ -180,6 +180,24 @@ public class OperatorsGrammar {
 				.addSymbol(new NonTerminal(NonTerminalName.EXPRESSION));
 		operatorDerivation.addSymbol(new Terminal(TokenCategory.ARRAYEND));
 		operatorGrammarArray.add(operatorDerivation);
+
+		// (17)EXPRESSION = ID PARAMBEGIN EXPRESSION PARAMEND
+		operatorDerivation = new Derivation();
+		operatorDerivation.addSymbol(new Terminal(TokenCategory.ID));
+		operatorDerivation.addSymbol(new Terminal(TokenCategory.PARAMBEGIN));
+		operatorDerivation
+				.addSymbol(new NonTerminal(NonTerminalName.EXPRESSION));
+		operatorDerivation.addSymbol(new Terminal(TokenCategory.PARAMEND));
+		operatorGrammarArray.add(operatorDerivation);
+
+		// (18)EXPRESSION = EXPRESSION SEP1 EXPRESSION
+		operatorDerivation = new Derivation();
+		operatorDerivation
+				.addSymbol(new NonTerminal(NonTerminalName.EXPRESSION));
+		operatorDerivation.addSymbol(new Terminal(TokenCategory.SEP1));
+		operatorDerivation
+				.addSymbol(new NonTerminal(NonTerminalName.EXPRESSION));
+		operatorGrammarArray.add(operatorDerivation);
 	}
 
 }
