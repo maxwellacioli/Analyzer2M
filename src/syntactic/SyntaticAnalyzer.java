@@ -35,7 +35,6 @@ public class SyntaticAnalyzer {
 	}
 
 	public void analyze() {
-
 		predictiveAnalyzer.predictiveAnalyze();
 	}
 

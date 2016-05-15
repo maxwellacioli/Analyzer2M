@@ -96,6 +96,7 @@ public class PrecedenceAnalyzer {
 							.getPrecedenceTableList()
 							.get(getIndexOfTerminalSymbol(operatorsStack.peek()))
 							.get(getIndexOfTerminalSymbol(token));
+
 				}
 
 				// Verificação da ação
@@ -115,13 +116,20 @@ public class PrecedenceAnalyzer {
 					// tirar o '(' e ')'
 					// referente a produção EXPRESSION = PARAMBEGIN EXPRESSION
 					// PARAMEND
+
 					if (tableValue != 10 && tableValue != 17) {
 						currentToken = operatorsStack.pop();
 					} else {
+						if ((tableValue == 10)
+								&& (operatorsStack.elementAt(
+										operatorsStack.size() - 3)
+										.getCategory().equals(TokenCategory.ID))) {
+							tableValue = 18;
+						}
 						operatorsStack.pop();
 						operatorsStack.pop();
-						if (tableValue == 17) {
-							operatorsStack.pop();
+						if (tableValue == 17 || tableValue == 18) {
+							currentToken = operatorsStack.pop();
 						}
 					}
 
@@ -129,7 +137,7 @@ public class PrecedenceAnalyzer {
 							.getInstance()
 							.getOperatorDerivation(tableValue - 1)
 							.getSymbolsList();
-					Terminal term;
+					TokenCategory term;
 					NonTerminal nonTerm;
 
 					System.out.print(NonTerminalName.EXPRESSION + "(" + count++
@@ -137,14 +145,18 @@ public class PrecedenceAnalyzer {
 
 					for (Symbol symbol : derivation) {
 						if (symbol.isTerminal()) {
-							term = (Terminal) symbol;
-							if (tableValue >= 11 && tableValue <= 16) {
-								System.out.print(term.getCategory() + "("
-										+ "\"" + currentToken.getValue() + "\""
-										+ ")" + " ");
+							term = ((Terminal) symbol).getCategory();
+							if (term.getCategoryValue() >= TokenCategory.CONSTNUMINT
+									.getCategoryValue()
+									&& term.getCategoryValue() <= TokenCategory.CONSTCCHAR
+											.getCategoryValue()
+									|| term.equals(TokenCategory.ID)) {
+								System.out.print(term + "(" + "\""
+										+ currentToken.getValue() + "\"" + ")"
+										+ " ");
 							} else {
 
-								System.out.print(term.getCategory() + " ");
+								System.out.print(term + " ");
 							}
 						} else {
 							nonTerm = (NonTerminal) symbol;

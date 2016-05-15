@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale.Category;
 
 import lexical.LexicalTable;
 import lexical.Token;
@@ -99,7 +100,7 @@ public class LexicalAnalyzer {
 			currentChar = nextChar();
 			tkBeginColumn++;
 		}
-		
+
 		if (Character.toString(currentChar).matches("\\d")) {
 			tkValue += currentChar;
 			currentChar = nextChar();
@@ -254,6 +255,11 @@ public class LexicalAnalyzer {
 		token.setColumn(tkBeginColumn);
 		token.setCategory(analyzeCategory(tkValue));
 
+		if (token.getCategory().equals(TokenCategory.COMMENT)) {
+			if (hasMoreTokens()) {
+				return nextToken();
+			}
+		}
 		return token;
 
 	}
@@ -349,7 +355,9 @@ public class LexicalAnalyzer {
 		if (tkValue.startsWith("\"") && tkValue.endsWith("\"")) {
 			return true;
 		} else if (tkValue.startsWith("\"")) {
-			printError("cadeia de caracteres não fechada corretamente com '\"'.", tkValue);
+			printError(
+					"cadeia de caracteres não fechada corretamente com '\"'.",
+					tkValue);
 		}
 		return false;
 	}
@@ -386,14 +394,15 @@ public class LexicalAnalyzer {
 			// contém algum caracter inválido,
 		} else if (tkValue.matches("[_a-zA-Z].*")) {
 			printError("identificador contém caracter inválido.", tkValue);
-			
+
 		}
 		return false;
 	}
 
 	private void printError(String string, String token) {
 		System.err.println("Erro na <linha, coluna> " + "= <" + currentLine
-				+ "," + currentColumn + ">. " + "'" + token + "'"+ " " + string);
+				+ "," + currentColumn + ">. " + "'" + token + "'" + " "
+				+ string);
 		System.exit(1);
 	}
 }

@@ -24,25 +24,26 @@ public class OperatorsGrammar {
 	}
 
 	private void loadOperatorsGrammarSymbols() {
-		operatorsGrammarSymbols.add(TokenCategory.OPARITADIT);
-		operatorsGrammarSymbols.add(TokenCategory.OPARITMULT);
-		operatorsGrammarSymbols.add(TokenCategory.OPARITEXP);
-		operatorsGrammarSymbols.add(TokenCategory.OPNEGUN);
-		operatorsGrammarSymbols.add(TokenCategory.OPNEGLOGIC);
-		operatorsGrammarSymbols.add(TokenCategory.PARAMBEGIN);
-		operatorsGrammarSymbols.add(TokenCategory.PARAMEND);
-		operatorsGrammarSymbols.add(TokenCategory.OPLOGICOR);
-		operatorsGrammarSymbols.add(TokenCategory.OPLOGICAND);
-		operatorsGrammarSymbols.add(TokenCategory.OPREL1);
-		operatorsGrammarSymbols.add(TokenCategory.OPREL2);
-		operatorsGrammarSymbols.add(TokenCategory.CONSTNUMINT);
-		operatorsGrammarSymbols.add(TokenCategory.CONSTNUMDEC);
-		operatorsGrammarSymbols.add(TokenCategory.CONSTLOGIC);
-		operatorsGrammarSymbols.add(TokenCategory.CONSTCHAR);
-		operatorsGrammarSymbols.add(TokenCategory.CONSTCCHAR);
-		operatorsGrammarSymbols.add(TokenCategory.ID);
-		operatorsGrammarSymbols.add(TokenCategory.ARRAYBEGIN);
-		operatorsGrammarSymbols.add(TokenCategory.ARRAYEND);
+		operatorsGrammarSymbols.add(TokenCategory.OPARITADIT);// 0
+		operatorsGrammarSymbols.add(TokenCategory.OPARITMULT);// 1
+		operatorsGrammarSymbols.add(TokenCategory.OPARITEXP);// 2
+		operatorsGrammarSymbols.add(TokenCategory.OPNEGUN);// 3
+		operatorsGrammarSymbols.add(TokenCategory.OPNEGLOGIC);// 4
+		operatorsGrammarSymbols.add(TokenCategory.PARAMBEGIN);// 5
+		operatorsGrammarSymbols.add(TokenCategory.PARAMEND);// 6
+		operatorsGrammarSymbols.add(TokenCategory.OPLOGICOR);// 7
+		operatorsGrammarSymbols.add(TokenCategory.OPLOGICAND);// 8
+		operatorsGrammarSymbols.add(TokenCategory.OPREL1);// 9
+		operatorsGrammarSymbols.add(TokenCategory.OPREL2);// 10
+		operatorsGrammarSymbols.add(TokenCategory.CONSTNUMINT);// 11
+		operatorsGrammarSymbols.add(TokenCategory.CONSTNUMDEC);// 12
+		operatorsGrammarSymbols.add(TokenCategory.CONSTLOGIC);// 13
+		operatorsGrammarSymbols.add(TokenCategory.CONSTCHAR);// 14
+		operatorsGrammarSymbols.add(TokenCategory.CONSTCCHAR);// 15
+		operatorsGrammarSymbols.add(TokenCategory.ID);// 16
+		operatorsGrammarSymbols.add(TokenCategory.ARRAYBEGIN);// 17
+		operatorsGrammarSymbols.add(TokenCategory.ARRAYEND);// 18
+		operatorsGrammarSymbols.add(TokenCategory.SEP1);// 19
 	}
 
 	public static OperatorsGrammar getInstance() {

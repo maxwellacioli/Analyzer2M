@@ -1,6 +1,6 @@
 major () empty [
 
 	printout ("Hello World")#	
-	
+
 ]#				
 							

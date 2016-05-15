@@ -59,6 +59,7 @@ public class PrecedenceTable {
 		lineTable.add(-1);
 		lineTable.add(-1);
 		lineTable.add(5);
+		lineTable.add(5);
 		precedenceTableList.add(lineTable);
 		lineTable = new ArrayList<Integer>();
 
@@ -82,6 +83,7 @@ public class PrecedenceTable {
 		lineTable.add(0);
 		lineTable.add(-1);
 		lineTable.add(-1);
+		lineTable.add(6);
 		lineTable.add(6);
 		precedenceTableList.add(lineTable);
 		lineTable = new ArrayList<Integer>();
@@ -107,6 +109,7 @@ public class PrecedenceTable {
 		lineTable.add(-1);
 		lineTable.add(-1);
 		lineTable.add(9);
+		lineTable.add(9);
 		precedenceTableList.add(lineTable);
 		lineTable = new ArrayList<Integer>();
 
@@ -130,6 +133,7 @@ public class PrecedenceTable {
 		lineTable.add(0);
 		lineTable.add(-1);
 		lineTable.add(-1);
+		lineTable.add(7);
 		lineTable.add(7);
 		precedenceTableList.add(lineTable);
 		lineTable = new ArrayList<Integer>();
@@ -155,6 +159,7 @@ public class PrecedenceTable {
 		lineTable.add(-1);
 		lineTable.add(-1);
 		lineTable.add(8);
+		lineTable.add(8);
 		precedenceTableList.add(lineTable);
 		lineTable = new ArrayList<Integer>();
 
@@ -178,6 +183,7 @@ public class PrecedenceTable {
 		lineTable.add(0);
 		lineTable.add(-1);
 		lineTable.add(-1);
+		lineTable.add(0);
 		lineTable.add(-1);
 		precedenceTableList.add(lineTable);
 		lineTable = new ArrayList<Integer>();
@@ -194,6 +200,7 @@ public class PrecedenceTable {
 		lineTable.add(10);
 		lineTable.add(10);
 		lineTable.add(10);
+		lineTable.add(-1);
 		lineTable.add(-1);
 		lineTable.add(-1);
 		lineTable.add(-1);
@@ -251,6 +258,7 @@ public class PrecedenceTable {
 		lineTable.add(-1);
 		lineTable.add(-1);
 		lineTable.add(2);
+		lineTable.add(2);
 		precedenceTableList.add(lineTable);
 		lineTable = new ArrayList<Integer>();
 
@@ -274,6 +282,7 @@ public class PrecedenceTable {
 		lineTable.add(0);
 		lineTable.add(-1);
 		lineTable.add(-1);
+		lineTable.add(4);
 		lineTable.add(4);
 		precedenceTableList.add(lineTable);
 		lineTable = new ArrayList<Integer>();
@@ -299,6 +308,7 @@ public class PrecedenceTable {
 		lineTable.add(-1);
 		lineTable.add(-1);
 		lineTable.add(3);
+		lineTable.add(3);
 		precedenceTableList.add(lineTable);
 		lineTable = new ArrayList<Integer>();
 
@@ -321,7 +331,8 @@ public class PrecedenceTable {
 		lineTable.add(-1);
 		lineTable.add(-1);
 		lineTable.add(-1);
-		lineTable.add(-1);
+		lineTable.add(11);
+		lineTable.add(11);
 		lineTable.add(11);
 		precedenceTableList.add(lineTable);
 		lineTable = new ArrayList<Integer>();
@@ -347,6 +358,7 @@ public class PrecedenceTable {
 		lineTable.add(-1);
 		lineTable.add(-1);
 		lineTable.add(12);
+		lineTable.add(12);
 		precedenceTableList.add(lineTable);
 		lineTable = new ArrayList<Integer>();
 
@@ -370,6 +382,7 @@ public class PrecedenceTable {
 		lineTable.add(-1);
 		lineTable.add(-1);
 		lineTable.add(-1);
+		lineTable.add(13);
 		lineTable.add(13);
 		precedenceTableList.add(lineTable);
 		lineTable = new ArrayList<Integer>();
@@ -395,6 +408,7 @@ public class PrecedenceTable {
 		lineTable.add(-1);
 		lineTable.add(-1);
 		lineTable.add(14);
+		lineTable.add(14);
 		precedenceTableList.add(lineTable);
 		lineTable = new ArrayList<Integer>();
 
@@ -419,6 +433,7 @@ public class PrecedenceTable {
 		lineTable.add(-1);
 		lineTable.add(-1);
 		lineTable.add(15);
+		lineTable.add(15);
 		precedenceTableList.add(lineTable);
 		lineTable = new ArrayList<Integer>();
 
@@ -428,7 +443,7 @@ public class PrecedenceTable {
 		lineTable.add(16);
 		lineTable.add(16);
 		lineTable.add(16);
-		lineTable.add(-1);
+		lineTable.add(0);
 		lineTable.add(16);
 		lineTable.add(16);
 		lineTable.add(16);
@@ -442,6 +457,7 @@ public class PrecedenceTable {
 		lineTable.add(-1);
 		lineTable.add(0);
 		lineTable.add(0);
+		lineTable.add(16);
 		lineTable.add(16);
 		precedenceTableList.add(lineTable);
 		lineTable = new ArrayList<Integer>();
@@ -465,24 +481,25 @@ public class PrecedenceTable {
 		lineTable.add(0);
 		lineTable.add(0);
 		lineTable.add(0);
-		lineTable.add(17); 	
+		lineTable.add(0);
+		lineTable.add(-1);
 		lineTable.add(-1);
 		precedenceTableList.add(lineTable);
 		lineTable = new ArrayList<Integer>();
 
 		// Relação 'arrayEnd' x (todos os terminais)
+		lineTable.add(17); 
+		lineTable.add(17);
+		lineTable.add(17);
+		lineTable.add(17);
+		lineTable.add(17);
+		lineTable.add(-1);
 		lineTable.add(17);
 		lineTable.add(17);
 		lineTable.add(17);
 		lineTable.add(17);
 		lineTable.add(17);
 		lineTable.add(-1);
-		lineTable.add(17);
-		lineTable.add(17);
-		lineTable.add(17);
-		lineTable.add(17);
-		lineTable.add(17);
-		lineTable.add(-1);
 		lineTable.add(-1);
 		lineTable.add(-1);
 		lineTable.add(-1);
@@ -491,6 +508,32 @@ public class PrecedenceTable {
 		lineTable.add(-1);
 		lineTable.add(17);
 		lineTable.add(17);
+		lineTable.add(17);
+		precedenceTableList.add(lineTable);
+		lineTable = new ArrayList<Integer>();
+
+		// Relação 'sep1' x (todos os terminais)
+		lineTable.add(0);
+		lineTable.add(0);
+		lineTable.add(0);
+		lineTable.add(0);
+		lineTable.add(0);
+		lineTable.add(0);
+		lineTable.add(19);
+		lineTable.add(0);
+		lineTable.add(0);
+		lineTable.add(0);
+		lineTable.add(0);
+		lineTable.add(0);
+		lineTable.add(0);
+		lineTable.add(0);
+		lineTable.add(0);
+		lineTable.add(0);
+		lineTable.add(0);
+		lineTable.add(-1);
+		lineTable.add(-1);
+		lineTable.add(-1);
+		lineTable.add(-1);
 		precedenceTableList.add(lineTable);
 		lineTable = new ArrayList<Integer>();
 
@@ -512,6 +555,7 @@ public class PrecedenceTable {
 		lineTable.add(0);
 		lineTable.add(0);
 		lineTable.add(0);
+		lineTable.add(-1);
 		lineTable.add(-1);
 		lineTable.add(-1);
 		lineTable.add(100);
