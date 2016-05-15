@@ -52,9 +52,9 @@ public class PredictiveAnalyzer {
 
 			terminal = new Terminal(token);
 			stack.push(new NonTerminal(NonTerminalName.PROGRAM));
-			
+
 			int left_counter = 1;
-			int right_counter = 2;
+			// int right_counter = 2;
 
 			while (!stack.isEmpty()) {
 
@@ -149,7 +149,7 @@ public class PredictiveAnalyzer {
 									} else {
 										nonTerm = (NonTerminal) symb;
 										System.out.print(nonTerm.getName()
-												+ "(" +  right_counter++ +")"
+												+ "(" + left_counter++ + ")"
 												+ " ");
 									}
 								}
