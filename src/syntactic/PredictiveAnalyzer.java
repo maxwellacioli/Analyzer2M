@@ -45,6 +45,10 @@ public class PredictiveAnalyzer {
 		Terminal terminal;
 		NonTerminal topNonTerminal;
 		Integer derivationNumber;
+		Stack<Integer> prodCount = new Stack<Integer>();
+		int leftCount = 0;
+		int rightCount = 1;
+		int rightCountAux = 0;
 
 		if (lexicalAnalyzer.hasMoreTokens()) {
 
@@ -52,10 +56,8 @@ public class PredictiveAnalyzer {
 
 			terminal = new Terminal(token);
 			stack.push(new NonTerminal(NonTerminalName.PROGRAM));
-
-			int left_counter = 1;
-			// int right_counter = 2;
-
+			prodCount.push(1);
+			
 			while (!stack.isEmpty()) {
 
 				topSymbol = stack.peek();
@@ -113,12 +115,15 @@ public class PredictiveAnalyzer {
 						}
 
 						if (derivationNumber != null) {
+							leftCount = prodCount.pop();
+							rightCountAux = rightCount; 
+							
 							derivation = grammar.getGrammarMap().get(
 									derivationNumber);
 
 							if (derivation != null) {
 								System.out.print(topNonTerminal.getName() + "("
-										+ left_counter++ + ")" + " = ");
+										+ leftCount + ")" + " = ");
 								stack.pop();
 								// TO REMOVE
 								Symbol symb;
@@ -149,16 +154,23 @@ public class PredictiveAnalyzer {
 									} else {
 										nonTerm = (NonTerminal) symb;
 										System.out.print(nonTerm.getName()
-												+ "(" + left_counter++ + ")"
+												+ "(" + ++rightCount + ")"
 												+ " ");
 									}
 								}
 								System.out.println();
 							} else {
 								System.out.println(topNonTerminal.getName()
-										+ "(" + left_counter++ + ")"
+										+ "(" + leftCount + ")"
 										+ " = epsilon");
 								stack.pop();
+							}
+							
+							if(rightCount > rightCountAux) {
+								int aux = rightCount;
+								while(aux > rightCountAux) {
+									prodCount.push(aux--);
+								}
 							}
 
 						} else {

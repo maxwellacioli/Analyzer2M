@@ -7,6 +7,8 @@ import lexical.TokenCategory;
 public class Grammar {
 	
 	private static Grammar grammarSingleton;
+	private HashMap<Integer, Derivation> grammarMap;
+	private Derivation derivationAux;
 	
 	public static final int EXPRESSION = 76;
 	
@@ -24,8 +26,6 @@ public class Grammar {
         return grammarSingleton;
     }
 	
-	private HashMap<Integer, Derivation> grammarMap;
-	private Derivation derivationAux;
 
 	public HashMap<Integer, Derivation> getGrammarMap() {
 		return grammarMap;
@@ -37,7 +37,7 @@ public class Grammar {
 		derivationAux = new Derivation();
 		derivationAux.addDerivationSymbols(
 				new NonTerminal(NonTerminalName.FUNCTIONS),
-				new NonTerminal(NonTerminalName.MAJORF));		
+				new NonTerminal(NonTerminalName.MAJORF));	
 		grammarPutDerivation(1, derivationAux);
 
 		// (2)‘id’ PARAMS RETURNTYPE ESCOPE FUNCTIONS

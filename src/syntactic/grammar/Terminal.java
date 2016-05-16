@@ -14,6 +14,13 @@ public class Terminal extends Symbol {
 		this.category = category;
 		token = null;
 	}
+	
+	public Terminal(TokenCategory category, String value) {
+
+		super(true, category.getCategoryValue());
+		this.category = category;
+		token = new Token();;
+	}
 
 	public Terminal(Token token) {
 		super(true, token.getCategory().getCategoryValue());
