@@ -153,12 +153,15 @@ public class PredictiveAnalyzer {
 												+ " ");
 									} else {
 										nonTerm = (NonTerminal) symb;
-										System.out.print(nonTerm.getName()
-												+ "(" + ++rightCount + ")"
-												+ " ");
-										if (nonTerm.getName().equals(
+										if (!nonTerm.getName().equals(
 												NonTerminalName.EXPRESSION)) {
-											rightCount--;
+											System.out.print(nonTerm.getName()
+													+ "(" + ++rightCount + ")"
+													+ " ");
+										} else {
+
+											System.out.print(nonTerm.getName()
+													+ " ");
 										}
 									}
 								}
