@@ -121,12 +121,16 @@ public class PrecedenceAnalyzer {
 							&& tableValue != PrecedenceTable.R17) {
 						currentToken = operatorsStack.pop();
 					} else {
-						if ((tableValue == PrecedenceTable.R10)
-								&& (operatorsStack.elementAt(
-										operatorsStack.size() - 3)
-										.getCategory().equals(TokenCategory.ID))) {
-							tableValue = PrecedenceTable.R18;
+						if (tableValue == PrecedenceTable.R10) {
+							if (operatorsStack.size() >= 3) {
+								if (operatorsStack
+										.elementAt(operatorsStack.size() - 3)
+										.getCategory().equals(TokenCategory.ID)) {
+									tableValue = PrecedenceTable.R18;
+								}
+							}
 						}
+
 						operatorsStack.pop();
 						operatorsStack.pop();
 						if (tableValue == PrecedenceTable.R17

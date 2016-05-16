@@ -57,7 +57,7 @@ public class PredictiveAnalyzer {
 			terminal = new Terminal(token);
 			stack.push(new NonTerminal(NonTerminalName.PROGRAM));
 			prodCount.push(1);
-			
+
 			while (!stack.isEmpty()) {
 
 				topSymbol = stack.peek();
@@ -116,8 +116,8 @@ public class PredictiveAnalyzer {
 
 						if (derivationNumber != null) {
 							leftCount = prodCount.pop();
-							rightCountAux = rightCount; 
-							
+							rightCountAux = rightCount;
+
 							derivation = grammar.getGrammarMap().get(
 									derivationNumber);
 
@@ -156,19 +156,22 @@ public class PredictiveAnalyzer {
 										System.out.print(nonTerm.getName()
 												+ "(" + ++rightCount + ")"
 												+ " ");
+										if (nonTerm.getName().equals(
+												NonTerminalName.EXPRESSION)) {
+											rightCount--;
+										}
 									}
 								}
 								System.out.println();
 							} else {
 								System.out.println(topNonTerminal.getName()
-										+ "(" + leftCount + ")"
-										+ " = epsilon");
+										+ "(" + leftCount + ")" + " = epsilon");
 								stack.pop();
 							}
-							
-							if(rightCount > rightCountAux) {
+
+							if (rightCount > rightCountAux) {
 								int aux = rightCount;
-								while(aux > rightCountAux) {
+								while (aux > rightCountAux) {
 									prodCount.push(aux--);
 								}
 							}
