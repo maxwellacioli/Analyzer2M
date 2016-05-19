@@ -1,0 +1,31 @@
+fibonacci( int limit ) empty [
+	int count#
+	int fib1#
+	int fib2#
+	int fib3#
+	
+	fib1 = 1#
+	fib2 = 1#
+	
+	if 	(limit == 0) [
+		printout ("0")#
+	]#
+	
+	while (count < limit) [
+		if (count < 2) [
+			printout ("1 ")#
+	] else [
+		fib3 = fib1 + fib2#
+		fib1 = fib2#
+		fib2 = fib3#
+		printout (fib3 ++ " ")#
+	]#
+	count = count +1#
+	]#
+]#
+
+major () empty [
+	int limit#
+	readin ( int , limit)#
+	fibonacci(limit)#
+]#

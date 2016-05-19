@@ -1,0 +1,33 @@
+shell_sort( int array{10} ) int { }[
+	
+	int i#
+	int j#
+	int h#
+	int size#
+	int value#
+
+	
+	iterator (h = 1 ; h < size ; h = h * 3 + 1) [
+	
+	]#
+
+	iterator ( h = h/3 ; h < 1 ; h = h) [
+		iterator (i = h ; i < size ; i = i + 1) [
+			value = array{i}#
+
+			iterator ( j = i - h ; j >= 0 and value < array{j} ; j = j -  h) [	
+				array{j + h} = array{j}#
+			]#
+				
+			array{j + h} = value#
+		]#
+	]#	
+]#
+
+major () empty [
+	
+	int unsorted{10}#
+	int sorted{10}#
+	unsorted= {9, 8, 3, 2, 5, 1, 4, 7, 6, 0}#
+	sorted = shell_sort(unsorted)#
+]#
