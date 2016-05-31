@@ -8,7 +8,7 @@ public class Analyzer2M {
 	private static LexicalAnalyzer lexicalAnalyzer;
 	private static SyntaticAnalyzer syntaticAnalyzer;
 
-	private static String filePath = "files/input/shellsort.2m";
+	private static String filePath = "files/input/hello.2m";
 
 	public Analyzer2M() {
 

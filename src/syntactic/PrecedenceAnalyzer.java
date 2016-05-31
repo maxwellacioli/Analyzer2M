@@ -69,7 +69,8 @@ public class PrecedenceAnalyzer {
 
 		System.out.println();
 		while (true) {
-			// Se pv e eof no cabeçote > Aceita!
+			// Se pv e eof no cabeçote => Aceita!
+			
 			if (operatorsStack.isEmpty() && (endOfSentence != null)) {
 				System.out.println();
 				return true;
