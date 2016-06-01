@@ -3,6 +3,7 @@ package syntactic;
 import java.util.ArrayList;
 import java.util.Stack;
 
+import syntactic.grammar.Grammar;
 import syntactic.grammar.NonTerminal;
 import syntactic.grammar.NonTerminalName;
 import syntactic.grammar.OperatorsGrammar;
@@ -14,16 +15,19 @@ import lexical.TokenCategory;
 
 public class PrecedenceAnalyzer {
 	private LexicalAnalyzer lexicalAnalyzer;
-	private Stack<Token> operatorsStack;
+	private Stack<Symbol> operatorsStack;
 	private Token endOfSentence;
-	private Token currentToken;
+	private Terminal currentTerm;
 	private PrecedenceTable precedenceTable;
 	private int paramCount = 0;
 	private int arrayCount = 0;
 
+	private Terminal stackTerm;
+	private Terminal tapeTerm;
+
 	public PrecedenceAnalyzer(LexicalAnalyzer lexicalAnalyzer) {
 		this.lexicalAnalyzer = lexicalAnalyzer;
-		operatorsStack = new Stack<Token>();
+		operatorsStack = new Stack<Symbol>();
 		precedenceTable = PrecedenceTable.getInstance();
 	}
 
@@ -54,9 +58,14 @@ public class PrecedenceAnalyzer {
 		}
 	}
 
-	private int getIndexOfTerminalSymbol(Token terminal) {
+	private int getIndexOfTerminalSymbol(Terminal terminal) {
 		return OperatorsGrammar.getInstance().getOperatorsGrammarSymbols()
 				.indexOf(terminal.getCategory());
+	}
+
+	private void handlerError() {
+		System.err.println("Handler invalido para reducao!");
+		System.exit(1);
 	}
 
 	public boolean precedenceAnalysis(Token token) {
@@ -70,33 +79,55 @@ public class PrecedenceAnalyzer {
 		System.out.println();
 		while (true) {
 			// Se pv e eof no cabeçote => Aceita!
-			
-			if (operatorsStack.isEmpty() && (endOfSentence != null)) {
+
+			if ((operatorsStack.size() == 1)
+					&& !operatorsStack.peek().isTerminal()
+					&& (endOfSentence != null)) {
 				System.out.println();
 				return true;
 			} else {
-				if (operatorsStack.isEmpty() || (endOfSentence != null)) {
+				if (((operatorsStack.size() == 1) && !operatorsStack.peek()
+						.isTerminal())
+						|| (endOfSentence != null)
+						|| operatorsStack.isEmpty()) {
 					tableAux = OperatorsGrammar.getInstance()
 							.getOperatorsGrammarSymbols().size();
 
 					// Se pv e terminal no cabeçote
-					if (operatorsStack.isEmpty()) {
+					if (operatorsStack.isEmpty()
+							|| ((operatorsStack.size() == 1) && !operatorsStack
+									.peek().isTerminal())) {
+						tapeTerm = new Terminal(token);
+
 						tableValue = precedenceTable.getPrecedenceTableList()
 								.get(tableAux)
-								.get(getIndexOfTerminalSymbol(token));
+								.get(getIndexOfTerminalSymbol(tapeTerm));
 
 					} // Se terminal no top da pilha e eof no cabeçote
 					else {
-						tableValue = precedenceTable
-								.getPrecedenceTableList()
-								.get(getIndexOfTerminalSymbol(operatorsStack
-										.peek())).get(tableAux);
+						if (!operatorsStack.peek().isTerminal()) {
+							stackTerm = (Terminal) operatorsStack
+									.elementAt(operatorsStack.size() - 2);
+						} else {
+							stackTerm = (Terminal) operatorsStack.peek();
+						}
+
+						tableValue = precedenceTable.getPrecedenceTableList()
+								.get(getIndexOfTerminalSymbol(stackTerm))
+								.get(tableAux);
 					}
+					// end
 				} else {
-					tableValue = precedenceTable
-							.getPrecedenceTableList()
-							.get(getIndexOfTerminalSymbol(operatorsStack.peek()))
-							.get(getIndexOfTerminalSymbol(token));
+					if (!operatorsStack.peek().isTerminal()) {
+						stackTerm = (Terminal) operatorsStack
+								.elementAt(operatorsStack.size() - 2);
+					} else {
+						stackTerm = (Terminal) operatorsStack.peek();
+					}
+
+					tableValue = precedenceTable.getPrecedenceTableList()
+							.get(getIndexOfTerminalSymbol(stackTerm))
+							.get(getIndexOfTerminalSymbol(new Terminal(token)));
 
 				}
 
@@ -104,7 +135,7 @@ public class PrecedenceAnalyzer {
 
 				if (tableValue == PrecedenceTable.ELT) { // Ação ELT
 
-					operatorsStack.push(token);
+					operatorsStack.push(new Terminal(token));
 
 					if (lexicalAnalyzer.hasMoreTokens()) {
 						token = lexicalAnalyzer.nextToken();
@@ -118,25 +149,116 @@ public class PrecedenceAnalyzer {
 					// referente a produção EXPRESSION = PARAMBEGIN EXPRESSION
 					// PARAMEND
 
-					if (tableValue != PrecedenceTable.R10
-							&& tableValue != PrecedenceTable.R17) {
-						currentToken = operatorsStack.pop();
-					} else {
-						if (tableValue == PrecedenceTable.R10) {
-							if (operatorsStack.size() >= 3) {
-								if (operatorsStack
-										.elementAt(operatorsStack.size() - 3)
-										.getCategory().equals(TokenCategory.ID)) {
-									tableValue = PrecedenceTable.R18;
-								}
+					if (tableValue >= PrecedenceTable.R11
+							&& tableValue <= PrecedenceTable.R16) {
+						if (operatorsStack.peek().isTerminal()) {
+							if (tableValue == PrecedenceTable.R16) {
+								currentTerm = (Terminal) operatorsStack.pop();
+							} else {
+								operatorsStack.pop();
 							}
 						}
+						operatorsStack.push(new NonTerminal(
+								NonTerminalName.EXPRESSION));
+					} else if (tableValue == PrecedenceTable.R7
+							|| tableValue == PrecedenceTable.R8) {
+						if (!operatorsStack.peek().isTerminal()) {
+							if (operatorsStack.elementAt(
+									operatorsStack.size() - 2).isTerminal()) {
+								operatorsStack.pop();
+								operatorsStack.pop();
+								operatorsStack.push(new NonTerminal(
+										NonTerminalName.EXPRESSION));
+							} else {
+								handlerError();
+							}
+						}
+					} else if (tableValue == PrecedenceTable.R17) {
+						if (operatorsStack.peek().isTerminal()) {
+							if (!operatorsStack.elementAt(
+									operatorsStack.size() - 2).isTerminal()) {
+								if (operatorsStack.elementAt(
+										operatorsStack.size() - 3).isTerminal()) {
+									if (operatorsStack.elementAt(
+											operatorsStack.size() - 4)
+											.isTerminal()) {
+										operatorsStack.pop();
+										operatorsStack.pop();
+										operatorsStack.pop();
+										operatorsStack.pop();
+										operatorsStack.push(new NonTerminal(
+												NonTerminalName.EXPRESSION));
+									} else {
+										handlerError();
+									}
+								} else {
+									handlerError();
+								}
+							} else {
+								handlerError();
+							}
+						} else {
+							handlerError();
+						}
+					} else if (tableValue == PrecedenceTable.R10) {
+						if (operatorsStack.size() > 3
+								&& (operatorsStack.elementAt(operatorsStack
+										.size() - 4).isTerminal())) {
+							Terminal termAux = (Terminal) operatorsStack
+									.elementAt(operatorsStack.size() - 4);
 
-						operatorsStack.pop();
-						operatorsStack.pop();
-						if (tableValue == PrecedenceTable.R17
-								|| tableValue == PrecedenceTable.R18) {
-							currentToken = operatorsStack.pop();
+							if (termAux.getCategory() == TokenCategory.ID) {
+								tableValue = PrecedenceTable.R18;
+							}
+						}
+						if (operatorsStack.peek().isTerminal()) {
+							if (!operatorsStack.elementAt(
+									operatorsStack.size() - 2).isTerminal()) {
+								if (operatorsStack.elementAt(
+										operatorsStack.size() - 3).isTerminal()) {
+									operatorsStack.pop();
+									operatorsStack.pop();
+									operatorsStack.pop();
+
+									// Caso seja R18 desempilha o id no indice
+									// topo -4
+									if (tableValue == PrecedenceTable.R18) {
+										currentTerm = ((Terminal) operatorsStack
+												.pop());
+									}
+
+									operatorsStack.push(new NonTerminal(
+											NonTerminalName.EXPRESSION));
+								} else {
+									handlerError();
+								}
+							} else {
+								handlerError();
+							}
+						} else {
+							handlerError();
+						}
+					} else {
+						if (!operatorsStack.peek().isTerminal()) {
+							if (operatorsStack.elementAt(
+									operatorsStack.size() - 2).isTerminal()) {
+								if ((operatorsStack.size() > 2)
+										&& !operatorsStack.elementAt(
+												operatorsStack.size() - 3)
+												.isTerminal()) {
+									operatorsStack.pop();
+									operatorsStack.pop();
+									operatorsStack.pop();
+									operatorsStack.push(new NonTerminal(
+											NonTerminalName.EXPRESSION));
+								} else {
+									handlerError();
+								}
+							} else {
+								handlerError();
+							}
+						} else {
+							handlerError();
 						}
 					}
 
@@ -159,8 +281,8 @@ public class PrecedenceAnalyzer {
 											.getCategoryValue()
 									|| term.equals(TokenCategory.ID)) {
 								System.out.print(term + "(" + "\""
-										+ currentToken.getValue() + "\"" + ")"
-										+ " ");
+										+ currentTerm.getTerminalValue() + "\""
+										+ ")" + " ");
 							} else {
 
 								System.out.print(term + " ");
